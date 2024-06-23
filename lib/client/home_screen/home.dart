@@ -1,3 +1,4 @@
+import 'package:clint_store/contact%20us/countactus_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +9,6 @@ import '../utilities/local_data.dart';
 import '../utilities/routes_manager.dart';
 import '../utilities/text_style.dart';
 import 'designer.dart';
-
 
 
 class Home2Screen extends StatefulWidget {
@@ -64,10 +64,16 @@ class _Home2ScreenState extends State<Home2Screen> {
   ];
   List tabNames = ["Stores", "Designers"];
   int selectedTab = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CreatAppBar(hasTitle: true, hasBackButton: true, title: 'jkjkjkjjjk', onDrawerPressed: () {  }, hasDrawer: false,),
+      appBar: CreatAppBar(
+        hasTitle: true,
+        hasBackButton: true,
+        title: 'jkjkjkjjjk',
+        onDrawerPressed: () {},
+        hasDrawer: false,),
       body: SafeArea(
         child: ListView(
           children: [
@@ -100,36 +106,48 @@ class _Home2ScreenState extends State<Home2Screen> {
                             //   backgroundColor: (Color(0xffF3CD6A)),
                             // ),
                             Expanded(
+                             // flex: 5,
                               child: Row(
-                                mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceEvenly,
                                 // MainAxisAlignment.spaceEvenly,
                                 children: [
                                   // Text("Home",
                                   //     style: BlackLabel.display5(context)
                                   //         .copyWith(color: Color(0xffF3CD6A))),
-                                  Text(
-                                    "About Us",
-                                    style: BlackLabel.display5(context)
-                                        .copyWith(color: Color(0xffF3CD6A)),
-                                  ),
-                                  Text(
-                                    "Contact Us",
-                                    style: BlackLabel.display5(context)
-                                        .copyWith(color: Color(0xffF3CD6A)),
+                                  // Text(
+                                  //   "About Us",
+                                  //   style: BlackLabel.display5(context)
+                                  //       .copyWith(color: Color(0xffF3CD6A)),
+                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ContactUsForm(),));
+
+                                    },
+                                    child: Text(
+                                      "Contact Us",
+                                      style: BlackLabel.display5(context)
+                                          .copyWith(color: Color(0xffF3CD6A)),
+                                    ),
                                   ),
                                 ],
                               ),
-                              flex: 6,
+
                             ),
-                             Spacer(),
+                            Spacer(),
                             Expanded(
-                              flex: 4,
+                              //flex: 4,
                               child: Row(
                                 children: [
                                   Container(
                                     alignment: Alignment.center,
 
-                                    padding: EdgeInsets.symmetric(horizontal: 7,vertical: 2),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 2),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
@@ -148,7 +166,8 @@ class _Home2ScreenState extends State<Home2Screen> {
                                   ),
                                   Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 2),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 2),
 
                                     child: Text(
                                       "sign up",
@@ -201,29 +220,31 @@ class _Home2ScreenState extends State<Home2Screen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
                   tabNames.length,
-                      (index) => InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedTab = index;
-                      });
-                    },
-                    child: Container(
-                        width: getSize(context: context).width * 0.25,
-                        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: selectedTab == index
-                                ? Color(0xff070F2B)
-                                : Color(0xffD9D9D9)),
-                        child: Text(
-                          tabNames[index],
-                          style: selectedTab == index
-                              ? WhiteTitle.display5(context)
-                              : BlackTitle.display5(context),
-                        )),
-                  ),
+                      (index) =>
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedTab = index;
+                          });
+                        },
+                        child: Container(
+                            width: getSize(context: context).width * 0.25,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 5),
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: selectedTab == index
+                                    ? Color(0xff070F2B)
+                                    : Color(0xffD9D9D9)),
+                            child: Text(
+                              tabNames[index],
+                              style: selectedTab == index
+                                  ? WhiteTitle.display5(context)
+                                  : BlackTitle.display5(context),
+                            )),
+                      ),
                 ),
               ),
             ),
@@ -330,35 +351,37 @@ class _Home2ScreenState extends State<Home2Screen> {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 5,
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedCategory = index;
-                          });
-                        },
-                        child: Container(
-                            width:
-                            getSize(context: context).width * 0.25,
+                      itemBuilder: (context, index) =>
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = index;
+                              });
+                            },
+                            child: Container(
+                                width:
+                                getSize(context: context).width * 0.25,
 
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                            alignment: Alignment.center,
-                            margin:
-                            EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(15),
-                                color: Color(selectedCategory == index
-                                    ? 0xff070F2B
-                                    : 0xffD9D9D9)),
-                            child: Text(
-                              "living room",
-                              maxLines: 1,
-                              style: selectedCategory == index
-                                  ? WhiteLabel.display5(context)
-                                  : BlackLabel.display5(context),
-                            )),
-                      )),
+                                padding:
+                                EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                alignment: Alignment.center,
+                                margin:
+                                EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(15),
+                                    color: Color(selectedCategory == index
+                                        ? 0xff070F2B
+                                        : 0xffD9D9D9)),
+                                child: Text(
+                                  "living room",
+                                  maxLines: 1,
+                                  style: selectedCategory == index
+                                      ? WhiteLabel.display5(context)
+                                      : BlackLabel.display5(context),
+                                )),
+                          )),
                 ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////// productList
                 Container(
