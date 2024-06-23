@@ -1,6 +1,12 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:clint_store/utilities/routes_manager.dart';
+import 'package:clint_store/utilities/text_style.dart';
 import 'package:flutter/material.dart';
-import 'login_client.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../common_widget/create_toast.dart';
+import '../../cubit/application_state/register_states.dart';
+import '../../cubit/cubits/register_cubit.dart';
+import '../../login/login_Screen.dart';
 
 class signupClient extends StatefulWidget {
   @override
@@ -8,13 +14,13 @@ class signupClient extends StatefulWidget {
 }
 
 class _signupClientState extends State<signupClient> {
-  final usernameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
 
-  final emailController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
-  final passwordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-  final repassController = TextEditingController();
+  TextEditingController repassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +66,13 @@ class _signupClientState extends State<signupClient> {
                 alignment: Alignment.bottomCenter,
                 child: SingleChildScrollView(
                   child: Column(children: [
-                    const Text(
+                     Text(
                       "Sign Up",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal),
+                      style:
+                   BlackTitle.display5(context).copyWith(fontSize: 20)
                     ),
                     const SizedBox(
-                      height: 7,
+                      height: 17,
                     ),
                     TextFormField(
                       controller: usernameController,
@@ -156,50 +160,113 @@ class _signupClientState extends State<signupClient> {
                       ),
                     ),
                     const SizedBox(
-                      height: 7,
+                      height: 14,
                     ),
-                    // Row(
-                    //   children: [
-                    //     Container(
-                    //       decoration: BoxDecoration(),
-                    //       child: null,
-                    //     ),
-                    //   ],
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
-                      child: MaterialButton(
-                        onPressed: ()  {
-                          setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => loginClient()));
-                          });
+
+
+
+
+
+
+
+                    BlocProvider(
+                      create: (BuildContext context) {
+                        return RegisterCubit();
+                      },
+                      child: BlocConsumer<RegisterCubit, RegisterStates>(
+                        builder: (BuildContext context, state) {
+                          RegisterCubit registerCubit = RegisterCubit.get(context);
+                          return     Padding(
+                            padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
+                            child: MaterialButton(
+                              onPressed: ()  {
+                                // setState(() {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) => LoginScreen()));
+                                // });
+
+
+                                print("usernameController : ${usernameController.text}") ;
+
+                                print("emailController : ${emailController.text}") ;
+                                print("passwordController : ${passwordController.text}") ;
+                                print("repassController : ${repassController.text}") ;
+
+                                if(passwordController.text!=repassController.text){
+                                  CreatToast().showToast(errorMessage: "كلمه المرور غير متطابقه", context: context);
+                                }
+                                else{
+
+
+                                }
+
+
+
+
+
+
+
+                              },
+                              shape: OutlineInputBorder(
+                                  borderSide: BorderSide(color:  Color(0xff070F2B),),
+                                  borderRadius: BorderRadius.circular(40)),
+                              textColor: Colors.white,
+                              minWidth: double.infinity,
+                              height: 50,
+                              color:  Color(0xff070F2B),
+                              elevation: 0.5,
+                              child: Text("Sign up",
+                                  style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.normal)),
+                            ),
+                          );
                         },
-                        shape: OutlineInputBorder(
-                            borderSide: BorderSide(color:  Color(0xff070F2B),),
-                            borderRadius: BorderRadius.circular(40)),
-                        textColor: Colors.white,
-                        minWidth: double.infinity,
-                        height: 55,
-                        color:  Color(0xff070F2B),
-                        elevation: 0.5,
-                        child: Text("Sign up",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.normal)),
+                        listener: (BuildContext context, Object? state) {
+                          if (state is RegisterDone) {
+                            CreatToast().showToast(
+                                // errorMessage: languageProvider!.getTexts("editDone"),
+                                context: context, errorMessage: '');
+                            RoutesManager.navigatorAndRemove(context, LoginScreen());
+                          }
+
+                          else if(state is ServerErrorRegister){
+                            // CreatToast().showToast(errorMessage:languageProvider!.getTexts("text400") , context: context,duration:5);
+                          }
+                        },
                       ),
                     ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text("i have an account "),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                              return loginClient();
-                            }));
+
+                            RoutesManager.navigatorAndRemove(context, LoginScreen());
                           },
                           child: const Center(
                               child: Text("sign in.",

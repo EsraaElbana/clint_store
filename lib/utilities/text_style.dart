@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'local_data.dart';
+import '../app_manager/local_data.dart';
+
 
 
 class BlackTitle {

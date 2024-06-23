@@ -1,14 +1,14 @@
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
+import 'package:clint_store/client/home_screen_cl/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../common_widgt/make_button.dart';
-import '../home_screen/home.dart';
-import '../utilities/local_data.dart';
-import '../utilities/routes_manager.dart';
-import '../utilities/text_style.dart';
+import '../../app_manager/local_data.dart';
+import '../../common_widget/make_button.dart';
+import '../../utilities/routes_manager.dart';
+import '../../utilities/text_style.dart';
+
 
 
 
@@ -98,7 +98,7 @@ class SuccessScreen extends StatelessWidget {
                 backGroundColor: Colors.transparent,
                 title: 'BACK TO HOME',
                 onTap: () {
-                  RoutesManager.navigatorPush(context, Home2Screen());
+                  RoutesManager.navigatorPush(context, HomeScreenClient());
                 },
                 titleStyle: BlackTitle.display5(context),
               ),

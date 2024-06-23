@@ -1,18 +1,17 @@
-import 'package:clint_store/signup_client/signup_client.dart';
-import 'package:flutter/cupertino.dart';
+
+import 'package:clint_store/client/sign_up_client/signup_client.dart';
 import 'package:flutter/material.dart';
 
-import '../client/home_screen/home.dart';
 
 
-class loginClient extends StatefulWidget {
-  loginClient({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<loginClient> createState() => _loginClientState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _loginClientState extends State<loginClient> {
+class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
 
   final password = TextEditingController();
@@ -119,12 +118,12 @@ class _loginClientState extends State<loginClient> {
                       padding: const EdgeInsets.fromLTRB(50, 30, 50, 0.25),
                       child: MaterialButton(
                         onPressed: () {
-                          setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Home2Screen()));
-                          });
+                          // setState(() {
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) => Home2Screen()));
+                          // });
                         },
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35)),

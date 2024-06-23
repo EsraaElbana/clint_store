@@ -1,14 +1,14 @@
 import 'package:clint_store/client/product/product_details.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 
-import '../common_widgt/make_filter.dart';
-import '../utilities/local_data.dart';
-import '../utilities/routes_manager.dart';
-import '../utilities/text_style.dart';
+import '../../app_manager/local_data.dart';
+
+import '../../common_widget/make_filter.dart';
+import '../../utilities/routes_manager.dart';
+import '../../utilities/text_style.dart';
 
 
 class CreatProduct extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'dart:ffi';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utilities/local_data.dart';
-import '../utilities/text_style.dart';
+import 'package:flutter/material.dart';
+
+import '../../app_manager/local_data.dart';
+import '../../utilities/text_style.dart';
+
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});

@@ -1,15 +1,16 @@
-import 'package:clint_store/frist_pages/signup.dart';
-import 'package:clint_store/signup_client/login_client.dart';
-import 'package:flutter/material.dart';
 
-class start_page extends StatefulWidget {
-  const start_page({super.key});
+import 'package:clint_store/interduce_pages/choose_client_or_engineer.dart';
+import 'package:flutter/material.dart';
+import '../login/login_Screen.dart';
+
+class ChooseLoginOrRegister extends StatefulWidget {
+  const ChooseLoginOrRegister({super.key});
 
   @override
-  State<start_page> createState() => _start_pageState();
+  State<ChooseLoginOrRegister> createState() => _ChooseLoginOrRegisterState();
 }
 
-class _start_pageState extends State<start_page> {
+class _ChooseLoginOrRegisterState extends State<ChooseLoginOrRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +69,7 @@ class _start_pageState extends State<start_page> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => loginClient()));
+                                      builder: (context) => LoginScreen()));
                             });
                           },
                           shape: OutlineInputBorder(
@@ -95,7 +96,7 @@ class _start_pageState extends State<start_page> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => signAll()));
+                                      builder: (context) => ChooseClientOrEngineer()));
                             });
                           },
                           shape: OutlineInputBorder(

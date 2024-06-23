@@ -1,24 +1,23 @@
 import 'package:clint_store/contact%20us/countactus_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../common_widgt/make_appbar.dart';
+import '../../app_manager/local_data.dart';
+
+import '../../common_widget/make_appbar.dart';
+import '../../utilities/routes_manager.dart';
+import '../../utilities/text_style.dart';
 import '../product/product.dart';
-import '../utilities/local_data.dart';
-import '../utilities/routes_manager.dart';
-import '../utilities/text_style.dart';
 import 'designer.dart';
 
 
-class Home2Screen extends StatefulWidget {
-  const Home2Screen({super.key});
+class HomeScreenClient extends StatefulWidget {
+  const HomeScreenClient({super.key});
 
   @override
-  State<Home2Screen> createState() => _Home2ScreenState();
+  State<HomeScreenClient> createState() => _HomeScreenClientState();
 }
 
-class _Home2ScreenState extends State<Home2Screen> {
+class _HomeScreenClientState extends State<HomeScreenClient> {
   int selectedCategory = 0;
   List<Product> productList = [
     Product(

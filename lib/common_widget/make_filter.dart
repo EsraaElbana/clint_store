@@ -1,8 +1,7 @@
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
-import '../utilities/local_data.dart';
+
+import '../app_manager/local_data.dart';
 import '../utilities/routes_manager.dart';
 import '../utilities/text_style.dart';
 import 'make_button.dart';
