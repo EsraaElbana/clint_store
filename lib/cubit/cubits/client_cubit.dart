@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_manager/local_data.dart';
 import '../../models/designer_model.dart';
-import '../../models/home_client_category_model.dart';
+import '../../models/category_model.dart';
 import '../../models/product_model_client.dart';
 import '../../services/shared_preference.dart';
 import '../application_state/client_states.dart';
@@ -73,11 +73,11 @@ class ClientCubit extends Cubit<ClientStates> {
           ));
 
       if (response.statusCode == 200) {
-        (response.data as List).forEach((element) {
+        (response.data ["productsc"]as List).forEach((element) {
           productsOfSpecialCategory.add(Product.fromJson(element));
         });
         emit(GetSpecialProductSuccess());
-        print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
+        print("get product of category ${categoryName} is ${productsOfSpecialCategory.length}");
       }
     } on DioError catch (error) {
       print(error.toString());
@@ -144,6 +144,7 @@ class ClientCubit extends Cubit<ClientStates> {
         (response.data ["Categories"]as List).forEach((element) {
           categories.add(Category.fromJson(element));
         });
+        categories.insert(0, Category(name: "All"));
         emit(getCategorySuccess());
         print("get All Categories ${categories.length}");
       }
@@ -165,7 +166,7 @@ class ClientCubit extends Cubit<ClientStates> {
     emit(getDesignerLoading());
     try {
       var response =
-          await dio.get(baseUrl + "user/productbycategory?searchKey=",
+          await dio.get(baseUrl + "user/getalleng",
               options: Options(
                 method: 'GET',
                 headers: {
@@ -176,11 +177,11 @@ class ClientCubit extends Cubit<ClientStates> {
               ));
 
       if (response.statusCode == 200) {
-        (response.data as List).forEach((element) {
+        (response.data ["Engs"]as List).forEach((element) {
           designers.add(Designer.fromJson(element));
         });
         emit(getDesignerSuccess());
-        print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
+        print("get Designer List  ${designers.length}");
       }
     } on DioError catch (error) {
       print(error.toString());

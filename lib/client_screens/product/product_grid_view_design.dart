@@ -1,5 +1,7 @@
 import 'package:clint_store/client_screens/product/product_details.dart';
+import 'package:clint_store/common_widget/create_toast.dart';
 import 'package:clint_store/utilities/routes_manager.dart';
+import 'package:clint_store/utilities/text_style.dart';
 import '../../client_Screens/product/product_design.dart';
 import '../../models/product_model_client.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class CreatProductView extends StatelessWidget {
   final int? crossAxisCount;
   final double? mainAxisSpacing, crossAxisSpacing, childAspectRatio;
   final Axis? scrollDirection;
+
   CreatProductView(
       {super.key,
         required this.productList,
@@ -21,7 +24,7 @@ class CreatProductView extends StatelessWidget {
         this.mainAxisSpacing,
         this.crossAxisSpacing,
         this.childAspectRatio,
-        this.scrollDirection});
+        this.scrollDirection,});
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +42,18 @@ class CreatProductView extends StatelessWidget {
         ),
         itemCount: productList.length,
         itemBuilder: (context, index) => InkWell(
-          onTap: (){
-            print("NNNNNNNNNNNNNNNNNNN");
+          onTap:
+
+              (){
+            // print("NNNNNNNNNNNNNNNNNNN");
+
            RoutesManager.navigatorPush(context,  ProductDetailsScreen(
              product: productList[index],
            ));
           },
-          child: CreatProduct(
+          child:
+
+          CreatProduct(
             product: productList[index],
           ),
         ));

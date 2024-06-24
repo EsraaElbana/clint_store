@@ -1,4 +1,5 @@
 
+import 'package:clint_store/models/designer_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_manager/local_data.dart';
@@ -8,7 +9,10 @@ import '../../utilities/text_style.dart';
 
 
 class DesignersScreen extends StatelessWidget {
-  DesignersScreen({super.key});
+  final List<Designer>designerList;
+
+
+   DesignersScreen({super.key, required this.designerList});
   List<String> designersExperience = ["business", "podcast", "startup"];
   @override
   Widget build(BuildContext context) {
@@ -16,16 +20,19 @@ class DesignersScreen extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.symmetric(horizontal: 15),
       shrinkWrap: true,
-      itemCount: 20,
+      itemCount: designerList.length,
       itemBuilder: (context, index) => Container(
         width: getSize(context: context).width,
         margin: EdgeInsets.symmetric(vertical: 8),
         child: creatDesignerDetails(
           context: context,
-          designerImage: 'assets/images/img.png',
-          designerName: 'AHMED MOHAMED',
-          details:
-          "Lorem ipsum dolor sit amet, consectetur  elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minimvel iam, quis nostrud exercitation ullamco laboris...",
+          designerIdentity: designerList[index].licencePicture!.designerImage!,
+          designerName: designerList[index].userName!,
+          email: designerList[index].email!,
+          address: designerList[index].address![0],
+          gender: designerList[index].gender!,
+          phone: designerList[index].phoneNumber!,
+
         ),
       ),
     );
@@ -33,9 +40,22 @@ class DesignersScreen extends StatelessWidget {
 
   Widget creatDesignerDetails({
     required BuildContext context,
-    required String designerImage,
+    required String designerIdentity,
     required String designerName,
-    required String details,
+    required String email,
+
+
+    required String address,
+    required String gender,
+    required String phone,
+
+
+
+
+
+
+
+
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -66,7 +86,7 @@ class DesignersScreen extends StatelessWidget {
             children: [
               Container(
                 height: getSize(context: context).height * 0.2,
-                child: Image.asset(designerImage),
+                child: Image.asset("assets/images/decore.png"),
               ),
               SizedBox(
                 height: 10,
@@ -82,10 +102,44 @@ class DesignersScreen extends StatelessWidget {
                     .copyWith(color: Colors.red, fontSize: 25),
               ),
               Text(
-                details,
+                email,
                 style:
                 BlackLabel.display5(context).copyWith(color: Colors.black),
               ),
+              Text(
+                address,
+                style:
+                BlackLabel.display5(context).copyWith(color: Colors.black),
+              ),
+
+      Row(
+ children: [
+   Text(
+     gender,
+     style:
+     BlackLabel.display5(context).copyWith(color: Colors.black),
+   ),
+   Text(
+     phone,
+     style:
+     BlackLabel.display5(context).copyWith(color: Colors.black),
+   ),
+ ],
+      )
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 width: getSize(context: context).width,
