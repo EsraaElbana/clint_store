@@ -47,8 +47,8 @@ dependencies:
   toast: ^0.3.0
   pin_code_text_field: ^1.8.0
   provider: ^6.0.4
-  image_picker:
-
+  image_picker: ^1.0.0
+  flutter_image_compress: ^2.0.4
 
 
 

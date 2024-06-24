@@ -1,10 +1,9 @@
 
-
-import 'package:clint_store/client/home_screen_cl/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../app_manager/local_data.dart';
+import '../../client_Screens/home_screen_cl/home.dart';
 import '../../common_widget/make_button.dart';
 import '../../utilities/routes_manager.dart';
 import '../../utilities/text_style.dart';

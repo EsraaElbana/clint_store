@@ -1,20 +1,27 @@
+import 'package:clint_store/engineer_Screen/sign_up_engineer/signup.dart';
+import 'package:clint_store/login/login_Screen.dart';
 import 'package:flutter/material.dart';
 
-import '../client/sign_up_client/signup_client.dart';
+import '../client_Screens/sign_up_client/signup_client.dart';
+import '../utilities/routes_manager.dart';
 
-
-
-class ChooseClientOrEngineer extends StatefulWidget {
+class ChooseClientOrEngineer extends StatelessWidget {
   const ChooseClientOrEngineer({Key? key}) : super(key: key);
 
-  @override
-  State<ChooseClientOrEngineer> createState() => _ChooseClientOrEngineerState();
-}
-
-@override
-class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   leading: InkWell(
+      //       onTap: () {
+      //         RoutesManager.pop(context);
+      //       },
+      //       child: Icon(
+      //         Icons.arrow_back_ios_new_sharp,
+      //         color: Colors.white,
+      //       )),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       backgroundColor: Color(0xff070F2B),
       body: Column(
         children: [
@@ -24,7 +31,7 @@ class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
               //height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color:  Color(0xff070F2B),
+                  color: Color(0xff070F2B),
                   image: DecorationImage(
                       image: AssetImage("assets/images/logo.png"),
                       fit: BoxFit.scaleDown)),
@@ -47,7 +54,7 @@ class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
                 padding: const EdgeInsets.all(15),
                 child: Column(children: [
                   const Text(
-                    "Sign Up",
+                    "Who Im ? ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -60,23 +67,21 @@ class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
                     padding: const EdgeInsets.fromLTRB(45, 28, 45, 10),
                     child: MaterialButton(
                       onPressed: () {
-                        setState(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => signupClient()));
-                        });
+                        RoutesManager.navigatorPush(
+                            context, LoginScreen(userType:"Client"));
                       },
                       shape: OutlineInputBorder(
-                          borderSide: BorderSide(color:  Color(0xff070F2B),),
+                          borderSide: BorderSide(
+                            color: Color(0xff070F2B),
+                          ),
                           borderRadius: BorderRadius.circular(20)),
-                      textColor:  Color(0xff070F2B),
+                      textColor: Color(0xff070F2B),
                       minWidth: double.infinity,
                       height: 55,
                       color: Colors.white70,
                       elevation: 0.5,
                       child: const Text(
-                        "Clint",
+                        "Client",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 20,
@@ -88,15 +93,13 @@ class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
                     padding: const EdgeInsets.fromLTRB(45, 2.5, 45, 10),
                     child: MaterialButton(
                       onPressed: () {
-                        // setState(() {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => SignUpEngineer()));
-                        // });
+                        RoutesManager.navigatorPush(
+                            context, LoginScreen(userType:"Engineer"));
                       },
                       shape: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff070F2B),),
+                          borderSide: BorderSide(
+                            color: Color(0xff070F2B),
+                          ),
                           borderRadius: BorderRadius.circular(20)),
                       textColor: Color(0xff070F2B),
                       minWidth: double.infinity,
@@ -108,7 +111,6 @@ class _ChooseClientOrEngineerState extends State<ChooseClientOrEngineer> {
                               fontSize: 20, fontWeight: FontWeight.normal)),
                     ),
                   ),
-
                 ]),
               ),
             ),

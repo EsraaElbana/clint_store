@@ -1,26 +1,24 @@
+import 'package:clint_store/cubit/cubits/client_cubit.dart';
+import 'package:clint_store/cubit/cubits/engineer_cubit.dart';
 import 'package:clint_store/services/shared_preference.dart';
+import 'package:clint_store/splash_screan.dart';
 import 'package:clint_store/utilities/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import 'client/sign_up_client/signup_client.dart';
-import 'cubit/cubits/main-cubit.dart';
-
 
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await SharedPreference.init();
-
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   // Bloc.observer = MyBlocObserver();
   runApp(MyApp()); // run app
 }
-
 
 //////////////////////////////////////////////////////
 
@@ -32,12 +30,8 @@ class MyApp extends StatelessWidget {
         // BlocProvider(create: (context) => ProfileCubit()),
         // BlocProvider(create: (context) => MissionCubit()),
         // BlocProvider(create: (context) => ContactCubit()),
-        BlocProvider(
-            create: (context) => MainCubit()
-              // ..getSettings()
-              // ..getCounties()
-              // ..getAllStaticPage(pageType: " ")
-        ),
+        BlocProvider(create: (context) => ClientCubit()..getAllProducts()),
+        BlocProvider(create: (context) => EngineerCubit()),
       ],
       child: MultiProvider(
           providers: providers,
@@ -48,7 +42,7 @@ class MyApp extends StatelessWidget {
             builder: (_, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: signupClient(),
+                home: SplashScreen(),
                 builder: (context, child) {
                   return MediaQuery(
                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

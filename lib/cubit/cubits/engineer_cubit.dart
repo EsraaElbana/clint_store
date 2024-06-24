@@ -2,15 +2,16 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../application_state/main_states.dart';
 
 import 'package:dio/dio.dart';
 
+import '../application_state/engineer_states.dart';
 
-class MainCubit extends Cubit<MainStates> {
-  MainCubit() : super(InitialState());
 
-  static MainCubit get(context) => BlocProvider.of(context);
+class EngineerCubit extends Cubit<EngineerStates> {
+  EngineerCubit() : super(InitialState());
+
+  static EngineerCubit get(context) => BlocProvider.of(context);
 
   Dio dio = Dio();
 

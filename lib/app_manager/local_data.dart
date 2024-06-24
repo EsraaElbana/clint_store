@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-const String baseUrl ="http://104.248.162.83/api/v1/"; /// sadhan app
-const String logo = "assets/images/appLogo2.png"; /// sadhan logo
-const String welcomeMessage1="اهلا بك في شجرة عائلة السدحان";
-const String apiKey= "AIzaSyCL-W_NbiFlISkaC9JyQc7ffUUgKUI_vac";
-const String appId= "1:683944300886:android:712d4f3485b459e70b86f7";
-const String messagingSenderId= "683944300886";
-const String projectId= "sadhan-7341c";
-const String applicationName="شجرة السدحان";
+const String baseUrl ="https://a2z-render.onrender.com/";
+const String serverError=
+"Failed to connect to the server";
 const Color mainColor2 = Color(0xff4E563E);
 const Color mainColor = Color(0xff5F694C);
  const Color mainColor3 = Color(0xff297A7A);
 const Color thirdColor = Color(0xff695A4D);
-const String applicationId= "Sadhan";
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,8 +19,8 @@ const String applicationId= "Sadhan";
 
 const Color whiteColor = Color(0xffFFFFFF);
 const Color greyColor = Color(0xffCBCBCB);
-const String mensImage="https://i.insider.com/54cbd53b69bedd033ad09526?width=1100&format=jpeg&auto=webp";
-const String noImage= "https://media.istockphoto.com/id/513472966/photo/young-arabian-man-with-arms-crossed.jpg?s=612x612&w=0&k=20&c=r7ifk4l2pZWjjWEq09V1RmFFRdpudyATmCYhfOxFGxs=";
+const String noImage=
+    "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg";
 
 
 

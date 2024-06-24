@@ -1,4 +1,3 @@
-import 'package:clint_store/client/product/product.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -6,23 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../app_manager/local_data.dart';
+import '../../client_Screens/product/product_design.dart';
 import '../../common_widget/make_button.dart';
 
 import '../../common_widget/make_rate.dart';
+import '../../models/product_model_client.dart';
 import '../../utilities/text_style.dart';
 import '../cart_screen/cart.dart';
 
 
-class ProductDetailsScreen2 extends StatefulWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final Product product;
 
-  ProductDetailsScreen2({super.key, required this.product});
+  ProductDetailsScreen({super.key, required this.product});
 
   @override
-  State<ProductDetailsScreen2> createState() => _ProductDetailsScreen2State();
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _ProductDetailsScreen2State extends State<ProductDetailsScreen2> {
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   List<Color> productColor = [
     Color(0xffE7C4AB),
     Color(0xffABD1E7),
@@ -199,9 +200,9 @@ class _ProductDetailsScreen2State extends State<ProductDetailsScreen2> {
 ////////////////////////////////////////////////////////////////////////////////////////////////// Add To Cart buttons
           Center(
             child:   MakeButton(
-                topMargin: 30,
-                width: getSize(context: context).width*0.6,
-                title: "Add To Cart",
+              topMargin: 30,
+              width: getSize(context: context).width*0.6,
+              title: "Add To Cart",
               onTap: () {
                 setState(() {
                   Navigator.push(

@@ -1,45 +1,45 @@
+import 'package:clint_store/interduce_pages/choose_client_or_engineer.dart';
 import 'package:clint_store/services/shared_preference.dart';
 import 'package:clint_store/utilities/routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'client/home_screen_cl/home.dart';
-import 'engineer/home_screen_en/home_screen_en.dart';
+import 'client_Screens/home_screen_cl/home.dart';
+
+import 'engineer_Screen/home_screen_en/home_screen_en.dart';
 import 'interduce_pages/choose_login_or_register.dart';
 
-class splash_screen extends StatefulWidget {
-  const splash_screen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<splash_screen> createState() => _splash_screenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _splash_screenState extends State<splash_screen> {
-  // void initState() {
-  //   Future.delayed(Duration(seconds: 3), () {
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => ChooseLoginOrRegister()));
-  //   });
-  //   super.initState();
-  // }
-  //
-
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+    // SharedPreference.setData(key: "userId",value: "");
 
     Future.delayed(Duration(seconds: 3), () {
-      print(
-          "userId in  splash screen : ${SharedPreference.getData(key: "userId")}");
+      // print(
+      //     "userId in  splash screen : ${SharedPreference.getData(key: "userId")}");
 
-      if (SharedPreference.getData(key: "userId") == null) {
+      if (SharedPreference.getData(key: "userId") == null ||
+          SharedPreference.getData(key: "userId").toString().isEmpty) {
         SharedPreference.clear();
-        RoutesManager.navigatorAndRemove(context, ChooseLoginOrRegister());
+        RoutesManager.navigatorAndRemove(context, ChooseClientOrEngineer());
+        print("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
       } else {
-        if (SharedPreference.getData(key: "userType") == "client") {
+        if (SharedPreference.getData(key: "userType") == "Client" &&
+            (SharedPreference.getData(key: "userId").toString().isNotEmpty ||
+                SharedPreference.getData(key: "userId") != null)) {
           RoutesManager.navigatorAndRemove(context, HomeScreenClient());
+          print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
         } else {
+          print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
           RoutesManager.navigatorAndRemove(context, HomeScreenEngineer());
         }
       }
@@ -50,7 +50,7 @@ class _splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff070F2B),
-      // color:  Color(0xFF0C134D),
+
       body: Container(
         child: Center(
             child: Image.asset(
