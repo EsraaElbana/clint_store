@@ -160,7 +160,7 @@ class AuthCubit extends Cubit<AuthStates> {
         print("Success login");
 
         SharedPreference.setData(key: "userId", value: client!.user!.id);
-        SharedPreference.setData(key: "token", value: "Saraha${client!.user!.token}");
+        SharedPreference.setData(key: "token", value: "A2Z ${client!.user!.token}");
         SharedPreference.setData(key: "userName", value: client!.user!.userName);
         SharedPreference.setData(key: "userType", value: "Client");
 
@@ -209,7 +209,7 @@ class AuthCubit extends Cubit<AuthStates> {
         print("Success login");
 
         SharedPreference.setData(key: "userId", value: engineer!.user!.id);
-        SharedPreference.setData(key: "token", value: "A2Z${engineer!.user!.token}");
+        SharedPreference.setData(key: "token", value: "Saraha ${engineer!.user!.token}");
         SharedPreference.setData(key: "userName", value: engineer!.user!.userName);
         SharedPreference.setData(key: "userAddress", value: engineer!.user!.address);
         SharedPreference.setData(key: "userNumber", value: engineer!.user!.phoneNumber);

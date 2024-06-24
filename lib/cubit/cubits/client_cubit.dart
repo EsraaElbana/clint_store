@@ -20,7 +20,6 @@ class ClientCubit extends Cubit<ClientStates> {
 
   Dio dio = Dio();
 
-/////////////////////////////////////////////////////////////////////////////////
 
 // ////////////////////////////////////////////////////////////////////////////////
   List<Product> allProducts = [];
@@ -34,7 +33,7 @@ class ClientCubit extends Cubit<ClientStates> {
             method: 'GET',
             headers: {
               HttpHeaders.authorizationHeader:
-                  'Bearer ${SharedPreference.getData(key: "token")}',
+                  '${SharedPreference.getData(key: "token")}',
               'content-Type': 'application/json'
             },
           ));
@@ -68,7 +67,7 @@ class ClientCubit extends Cubit<ClientStates> {
             method: 'GET',
             headers: {
               HttpHeaders.authorizationHeader:
-                  'Bearer ${SharedPreference.getData(key: "token")}',
+                  '${SharedPreference.getData(key: "token")}',
               'content-Type': 'application/json'
             },
           ));
@@ -91,38 +90,38 @@ class ClientCubit extends Cubit<ClientStates> {
   }
 
 ///////////////////////////////////////////////////////////////////////////////
-  List<Product> searchedProducts = [];
-  Future<void> getProductsBySearch({required String searchWord}) async {
-    searchedProducts.clear();
-    emit(SearchedProductLoading());
-    try {
-      var response = await dio.get(
-          baseUrl + "user/productbycategory?searchKey=$searchWord",
-          options: Options(
-            method: 'GET',
-            headers: {
-              HttpHeaders.authorizationHeader:
-                  'Bearer ${SharedPreference.getData(key: "token")}',
-              'content-Type': 'application/json'
-            },
-          ));
-
-      if (response.statusCode == 200) {
-        (response.data as List).forEach((element) {
-          productsOfSpecialCategory.add(Product.fromJson(element));
-        });
-        emit(SearchedProductSuccess());
-        print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
-      }
-    } on DioError catch (error) {
-      print(error.toString());
-      if (error.error is SocketException) {
-        emit(ServerErrorClient());
-      } else {
-        emit(SearchedProductError());
-      }
-    }
-  }
+//   List<Product> searchedProducts = [];
+//   Future<void> getProductsBySearch({required String searchWord}) async {
+//     searchedProducts.clear();
+//     emit(SearchedProductLoading());
+//     try {
+//       var response = await dio.get(
+//           baseUrl + "user/productbycategory?searchKey=$searchWord",
+//           options: Options(
+//             method: 'GET',
+//             headers: {
+//               HttpHeaders.authorizationHeader:
+//                   '${SharedPreference.getData(key: "token")}',
+//               'content-Type': 'application/json'
+//             },
+//           ));
+//
+//       if (response.statusCode == 200) {
+//         (response.data as List).forEach((element) {
+//           productsOfSpecialCategory.add(Product.fromJson(element));
+//         });
+//         emit(SearchedProductSuccess());
+//         print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
+//       }
+//     } on DioError catch (error) {
+//       print(error.toString());
+//       if (error.error is SocketException) {
+//         emit(ServerErrorClient());
+//       } else {
+//         emit(SearchedProductError());
+//       }
+//     }
+//   }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   List<Category> categories = [];
@@ -131,22 +130,22 @@ class ClientCubit extends Cubit<ClientStates> {
     emit(getCategoryLoading());
     try {
       var response =
-          await dio.get(baseUrl + "user/productbycategory?searchKey=",
+          await dio.get(baseUrl + "user/getallcategory",
               options: Options(
                 method: 'GET',
                 headers: {
                   HttpHeaders.authorizationHeader:
-                      'Bearer ${SharedPreference.getData(key: "token")}',
+                      '${SharedPreference.getData(key: "token")}',
                   'content-Type': 'application/json'
                 },
               ));
 
       if (response.statusCode == 200) {
-        (response.data as List).forEach((element) {
+        (response.data ["Categories"]as List).forEach((element) {
           categories.add(Category.fromJson(element));
         });
         emit(getCategorySuccess());
-        print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
+        print("get All Categories ${categories.length}");
       }
     } on DioError catch (error) {
       print(error.toString());
@@ -171,7 +170,7 @@ class ClientCubit extends Cubit<ClientStates> {
                 method: 'GET',
                 headers: {
                   HttpHeaders.authorizationHeader:
-                      'Bearer ${SharedPreference.getData(key: "token")}',
+                      '${SharedPreference.getData(key: "token")}',
                   'content-Type': 'application/json'
                 },
               ));
@@ -211,7 +210,7 @@ class ClientCubit extends Cubit<ClientStates> {
           method: 'POST',
           headers: {
             HttpHeaders.authorizationHeader:
-                'Bearer ${SharedPreference.getData(key: "token")}',
+                '${SharedPreference.getData(key: "token")}',
             'content-Type': 'application/json'
           },
         ),
@@ -248,7 +247,7 @@ class ClientCubit extends Cubit<ClientStates> {
           method: 'GET',
           headers: {
             HttpHeaders.authorizationHeader:
-                'Bearer ${SharedPreference.getData(key: "token")}',
+                '${SharedPreference.getData(key: "token")}',
             'content-Type': 'application/json'
           },
         ),
@@ -292,7 +291,7 @@ class ClientCubit extends Cubit<ClientStates> {
 //           method: 'POST',
 //           headers: {
 //             HttpHeaders.authorizationHeader:
-//             'Bearer ${SharedPreference.getData(key: "token")}',
+//             '${SharedPreference.getData(key: "token")}',
 //             'content-Type': 'application/json'
 //           },
 //         ),

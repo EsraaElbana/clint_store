@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // BlocProvider(create: (context) => ProfileCubit()),
         // BlocProvider(create: (context) => MissionCubit()),
         // BlocProvider(create: (context) => ContactCubit()),
-        BlocProvider(create: (context) => ClientCubit()..getAllProducts()),
+        BlocProvider(create: (context) => ClientCubit()..getAllProducts()..getClientHomeCategories()),
         BlocProvider(create: (context) => EngineerCubit()),
       ],
       child: MultiProvider(

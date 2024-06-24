@@ -31,15 +31,15 @@ class _SplashScreenState extends State<SplashScreen> {
           SharedPreference.getData(key: "userId").toString().isEmpty) {
         SharedPreference.clear();
         RoutesManager.navigatorAndRemove(context, ChooseClientOrEngineer());
-        print("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+        print("this is the first time to enter the application");
       } else {
         if (SharedPreference.getData(key: "userType") == "Client" &&
             (SharedPreference.getData(key: "userId").toString().isNotEmpty ||
                 SharedPreference.getData(key: "userId") != null)) {
           RoutesManager.navigatorAndRemove(context, HomeScreenClient());
-          print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+          print("login as Client with saved id");
         } else {
-          print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+          print("Login as Engineer with saved id");
           RoutesManager.navigatorAndRemove(context, HomeScreenEngineer());
         }
       }
