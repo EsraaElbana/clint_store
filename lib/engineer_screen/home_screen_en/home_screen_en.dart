@@ -1,5 +1,8 @@
+import 'package:clint_store/common_widget/make_button.dart';
 import 'package:clint_store/cubit/application_state/engineer_states.dart';
 import 'package:clint_store/cubit/cubits/engineer_cubit.dart';
+import 'package:clint_store/interduce_pages/choose_client_or_engineer.dart';
+import 'package:clint_store/utilities/routes_manager.dart';
 import 'package:clint_store/utilities/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +44,26 @@ class _HomeScreenEngineerState extends State<HomeScreenEngineer> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Center(child: Text("home screen Engineer",style: WhiteTitle.display5(context).copyWith(fontSize: 20),))],
+              children: [
+                Center(
+                    child: Text(
+                  "home screen Engineer",
+                  style: WhiteTitle.display5(context).copyWith(fontSize: 20),
+                )),
+
+
+
+
+                Center(child: MakeButton(
+                  topMargin: 23,
+                    width: getSize(context: context).width*0.5,
+                    title: "log out", onTap: (){
+
+                    SharedPreference.clear();
+                    RoutesManager.navigatorAndRemove(context, ChooseClientOrEngineer());
+
+                }))
+              ],
             );
           },
           listener: (BuildContext context, Object? state) {
