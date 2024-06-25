@@ -20,7 +20,7 @@ class CreatDrawerClient extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const SizedBox(
-            height: 12,
+            height: 30,
           ),
           Padding(
             padding: const EdgeInsets.all(10),

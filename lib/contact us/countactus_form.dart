@@ -1,4 +1,11 @@
+import 'package:clint_store/common_widget/create_toast.dart';
+import 'package:clint_store/common_widget/make_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../app_manager/local_data.dart';
+import '../cubit/application_state/client_states.dart';
+import '../cubit/cubits/client_cubit.dart';
 
 class ContactUs extends StatefulWidget {
   @override
@@ -7,15 +14,16 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
   final _formKey = GlobalKey<FormState>();
-  final usernameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
 
-  final subjectController = TextEditingController();
-  final messegeController = TextEditingController();
-  final emailController = TextEditingController();
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -58,12 +66,12 @@ class _ContactUsState extends State<ContactUs> {
                                 BorderRadius.all(Radius.circular(15))),
                       ),
                       controller: usernameController,
-                      validator: (value) {
-                        if (usernameController.text.isEmpty) {
-                          return 'please enter Your Name';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (usernameController.text.isEmpty) {
+                      //     return 'please enter Your Name';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     SizedBox(
                       height: 12,
@@ -76,12 +84,12 @@ class _ContactUsState extends State<ContactUs> {
                                 BorderRadius.all(Radius.circular(15))),
                       ),
                       controller: emailController,
-                      validator: (value) {
-                        if (emailController.text.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (emailController.text.isEmpty) {
+                      //     return 'Please enter your email';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     SizedBox(
                       height: 12,
@@ -94,12 +102,12 @@ class _ContactUsState extends State<ContactUs> {
                                 BorderRadius.all(Radius.circular(15))),
                       ),
                       controller: subjectController,
-                      validator: (value) {
-                        if (subjectController.text.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (subjectController.text.isEmpty) {
+                      //     return 'Please enter your email';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     SizedBox(
                       height: 12,
@@ -112,41 +120,98 @@ class _ContactUsState extends State<ContactUs> {
                                 BorderRadius.all(Radius.circular(15))),
                       ),
                       maxLines: 4,
-                      controller: messegeController,
-                      validator: (value) {
-                        if (messegeController.text.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        return null;
-                      },
+                      controller: messageController,
+                      // validator: (value) {
+                      //   if (messegeController.text.isEmpty) {
+                      //     return 'Please enter your email';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
-                      child: MaterialButton(
-                        onPressed: () {
-                          // setState(() {
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => ()));
-                          // });
-                        },
-                        shape: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xff070F2B),
-                            ),
-                            borderRadius: BorderRadius.circular(20)),
-                        textColor: Colors.white,
-                        minWidth: double.infinity,
-                        height: 55,
-                        color: Color(0xff070F2B),
-                        elevation: 0.20,
-                        child: Text("Send Message",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400)),
-                      ),
-                    ),
+
+                    BlocConsumer<ClientCubit, ClientStates>(
+                      builder: (BuildContext context, state) {
+                        ClientCubit clientCubit = ClientCubit.get(context);
+                        return   Padding(
+                          padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
+                          child: MaterialButton(
+                            onPressed: () {
+
+                              TextEditingController usernameController = TextEditingController();
+
+                              TextEditingController subjectController = TextEditingController();
+                              TextEditingController messageController = TextEditingController();
+                              TextEditingController emailController = TextEditingController();
+
+                              print("usernameController :  ${usernameController.text}");
+                              print("subjectController :  ${subjectController.text}");
+                              print("messageController :  ${messageController.text}");
+                              print("emailController :  ${emailController.text}");
+
+                              if(
+                              usernameController.text.trim().isEmpty||
+                                  subjectController.text.trim().isEmpty||
+                                  messageController.text.trim().isEmpty||
+                                  emailController.text.trim().isEmpty
+
+
+
+                              ){
+                                CreatToast().showToast(errorMessage: "من فضلك اكمل البيانات الثابقه", context: context);
+                              }
+                              else{
+clientCubit.contactUs(userName: usernameController.text, email: emailController.text, subject: subjectController.text, message: messageController.text)
+;
+                              }
+
+
+
+
+
+
+                            },
+                            shape: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xff070F2B),
+                                ),
+                                borderRadius: BorderRadius.circular(20)),
+                            textColor: Colors.white,
+                            minWidth: double.infinity,
+                            height: 55,
+                            color: Color(0xff070F2B),
+                            elevation: 0.20,
+                            child: Text("Send Message",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w400)),
+                          ),
+                        );
+                      },
+                      listener: (BuildContext context, Object? state) {
+
+
+                        if (state is ServerErrorClient) {
+                          CreatToast().showToast(
+                              errorMessage: serverError, context: context, duration: 5);
+                        }
+
+                       else if (state is ContactUsSuccess) {
+                       CreatToast().showToast(errorMessage: "تم إرسال الرساله بنجاح", context: context);
+                        }
+
+
+
+                        else if (state is ContactUsError) {
+                          CreatToast().showToast(errorMessage: "عفوا لقد حدث خطأ ولم يتم الارسال", context: context);
+                        }
+                      },
+                    )
+
+
+
+
+
+
                   ],
                 ),
               ),

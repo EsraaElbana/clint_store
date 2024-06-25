@@ -20,14 +20,13 @@ class ClientCubit extends Cubit<ClientStates> {
 
   Dio dio = Dio();
 
-
 // ////////////////////////////////////////////////////////////////////////////////
   List<Product> allProducts = [];
 
   Future<void> getAllProducts() async {
     allProducts.clear();
     try {
-      emit( GetAllProductLoading() );
+      emit(GetAllProductLoading());
 
       var response = await dio.get(baseUrl + "user/getallproduct",
           options: Options(
@@ -74,11 +73,12 @@ class ClientCubit extends Cubit<ClientStates> {
           ));
 
       if (response.statusCode == 200) {
-        (response.data ["productsc"]as List).forEach((element) {
+        (response.data["productsc"] as List).forEach((element) {
           productsOfSpecialCategory.add(Product.fromJson(element));
         });
         emit(GetSpecialProductSuccess());
-        print("get product of category ${categoryName} is ${productsOfSpecialCategory.length}");
+        print(
+            "get product of category ${categoryName} is ${productsOfSpecialCategory.length}");
       }
     } on DioError catch (error) {
       print(error.toString());
@@ -97,19 +97,18 @@ class ClientCubit extends Cubit<ClientStates> {
     categories.clear();
     emit(GetCategoryLoading());
     try {
-      var response =
-          await dio.get(baseUrl + "user/getallcategory",
-              options: Options(
-                method: 'GET',
-                headers: {
-                  HttpHeaders.authorizationHeader:
-                      '${SharedPreference.getData(key: "token")}',
-                  'content-Type': 'application/json'
-                },
-              ));
+      var response = await dio.get(baseUrl + "user/getallcategory",
+          options: Options(
+            method: 'GET',
+            headers: {
+              HttpHeaders.authorizationHeader:
+                  '${SharedPreference.getData(key: "token")}',
+              'content-Type': 'application/json'
+            },
+          ));
 
       if (response.statusCode == 200) {
-        (response.data ["Categories"]as List).forEach((element) {
+        (response.data["Categories"] as List).forEach((element) {
           categories.add(Category.fromJson(element));
         });
         categories.insert(0, Category(name: "All"));
@@ -134,19 +133,18 @@ class ClientCubit extends Cubit<ClientStates> {
     designers.clear();
     emit(GetDesignerLoading());
     try {
-      var response =
-          await dio.get(baseUrl + "user/getalleng",
-              options: Options(
-                method: 'GET',
-                headers: {
-                  HttpHeaders.authorizationHeader:
-                      '${SharedPreference.getData(key: "token")}',
-                  'content-Type': 'application/json'
-                },
-              ));
+      var response = await dio.get(baseUrl + "user/getalleng",
+          options: Options(
+            method: 'GET',
+            headers: {
+              HttpHeaders.authorizationHeader:
+                  '${SharedPreference.getData(key: "token")}',
+              'content-Type': 'application/json'
+            },
+          ));
 
       if (response.statusCode == 200) {
-        (response.data ["Engs"]as List).forEach((element) {
+        (response.data["Engs"] as List).forEach((element) {
           designers.add(Designer.fromJson(element));
         });
         emit(GetDesignerSuccess());
@@ -160,6 +158,54 @@ class ClientCubit extends Cubit<ClientStates> {
         emit(GetDesignerError());
       }
     }
+  }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<bool> contactUs({
+    required String userName,
+    required String email,
+    required String subject,
+    required String message,
+  }) async {
+    var params = {
+      "name": userName,
+      "email": email,
+      "subject": subject,
+      "message": message
+    };
+
+    emit(ContactUsLoading());
+
+    try {
+      var response = await dio.post(
+        baseUrl + "user/contactmsg",
+        data: params,
+        options: Options(
+          method: 'POST',
+          headers: {
+            HttpHeaders.authorizationHeader:
+                '${SharedPreference.getData(key: "token")}',
+            'content-Type': 'application/json'
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print("contact us is done");
+
+        emit(ContactUsSuccess());
+        return true;
+      }
+    } on DioError catch (error) {
+      print(error.toString());
+      if (error.error is SocketException) {
+        emit(ServerErrorClient());
+      } else {
+        emit(ContactUsError());
+      }
+    }
+
+    return false;
   }
 
 /////////////////////////////////////////////// Cart   //////////////////////////////////////////////////////
@@ -249,10 +295,8 @@ class ClientCubit extends Cubit<ClientStates> {
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
   Future<bool> deleteProductFromCart({
     required String productId,
-
   }) async {
     var params = {"productId": productId};
 
@@ -266,7 +310,7 @@ class ClientCubit extends Cubit<ClientStates> {
           method: 'DELETE',
           headers: {
             HttpHeaders.authorizationHeader:
-            '${SharedPreference.getData(key: "token")}',
+                '${SharedPreference.getData(key: "token")}',
             'content-Type': 'application/json'
           },
         ),
@@ -290,22 +334,4 @@ class ClientCubit extends Cubit<ClientStates> {
     return false;
   }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

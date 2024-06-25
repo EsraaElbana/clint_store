@@ -47,6 +47,9 @@ class DeleteItemCartError extends ClientStates{}
 class DeleteItemCartSuccess extends ClientStates{}
 class DeleteItemCartLoading extends ClientStates{}
 
+class ContactUsLoading extends ClientStates{}
+class ContactUsError extends ClientStates{}
+class ContactUsSuccess extends ClientStates{}
 
 
 
