@@ -44,7 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
           print("login as Client with saved id");
         } else {
           print("Login as Engineer with saved id");
+
+
           RoutesManager.navigatorAndRemove(context, HomeScreenEngineer());
+
+
         }
       }
     });
