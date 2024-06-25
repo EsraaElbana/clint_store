@@ -12,6 +12,7 @@ class CreatLoading extends StatelessWidget{
          children: [
          Container(
            // height: height??150,
+           // height: 80,
            child: Center(
              child: CircularProgressIndicator(
                color : Colors.blue,

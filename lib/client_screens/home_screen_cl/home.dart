@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_manager/local_data.dart';
 
+import '../../common_widget/creat_no_available_data.dart';
 import '../../common_widget/create_toast.dart';
 import '../../common_widget/make_appbar.dart';
 import '../../cubit/application_state/client_states.dart';
@@ -33,6 +34,7 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
 
   @override
   void initState() {
+    // BlocProvider.of<ClientCubit>(context).getAllProducts();
     print("user Id : ${SharedPreference.getData(key: "userId")}");
     print("user token : ${SharedPreference.getData(key: "token")}");
     print("user Name  : ${SharedPreference.getData(key: "userName")}");
@@ -113,11 +115,11 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                             setState(() {
                               selectedTab = index;
                             });
-                            if(selectedTab==1){
+                            if (selectedTab == 1) {
                               clientCubit.getClientHomeDesigners();
                               clientCubit.getAllProducts();
                               setState(() {
-                                selectedCategory=0;
+                                selectedCategory = 0;
                               });
                             }
                           },
@@ -143,7 +145,11 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                     ),
                   ),
                   selectedTab == 1
-                      ? DesignersScreen(designerList:clientCubit.designers)
+                      ? Container(
+                          child: (state is GetDesignerLoading)
+                              ? CreatLoading()
+                              : DesignersScreen(
+                                  designerList: clientCubit.designers))
                       : Column(
                           children: [
 ////////////////////////////////////////////////////////////////////////////////////// title
@@ -295,8 +301,10 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                       )),
                             ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////// productList
-                            (state is GetAllProductLoading ||
-                                    state is GetSpecialProductLoading)
+                            ((state is GetAllProductLoading ||
+                                    state is GetSpecialProductLoading))
+
+                                // ? CreatLoading()
                                 ? CreatLoading()
                                 : Container(
                                     margin: EdgeInsets.all(5),
@@ -304,20 +312,12 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                         EdgeInsets.symmetric(horizontal: 15),
                                     child: selectedCategory == 0
                                         ? Container(
-                                            child: clientCubit
-                                                    .allProducts.isEmpty
-                                                ? Center(
-                                                    child: Text(
-                                                      "عفوا لا يوجد بيانات متاحه الان !!!!",
-                                                      style: BlackTitle
-                                                              .display5(context)
-                                                          .copyWith(
-                                                              color:
-                                                                  Colors.red),
-                                                    ),
-                                                  )
+                                            child: (clientCubit
+                                                        .allProducts.isEmpty &&
+                                                    state
+                                                        is GetAllProductSuccess)
+                                                ? CreatNoAvailableData()
                                                 : CreatProductView(
-
                                                     productList: clientCubit
                                                                 .allProducts
                                                                 .length >=
@@ -330,19 +330,12 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                                   ),
                                           )
                                         : Container(
-                                            child: clientCubit
-                                                    .productsOfSpecialCategory
-                                                    .isEmpty
-                                                ? Center(
-                                                    child: Text(
-                                                      "عفوا لا يوجد بيانات متاحه الان !!!!",
-                                                      style: BlackTitle
-                                                              .display5(context)
-                                                          .copyWith(
-                                                              color:
-                                                                  Colors.red),
-                                                    ),
-                                                  )
+                                            child: (clientCubit
+                                                        .productsOfSpecialCategory
+                                                        .isEmpty &&
+                                                    state
+                                                        is GetSpecialProductSuccess)
+                                                ? CreatNoAvailableData()
                                                 : CreatProductView(
                                                     productList: clientCubit
                                                                 .productsOfSpecialCategory
@@ -392,9 +385,16 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
             );
           },
           listener: (BuildContext context, Object? state) {
+            // print("=============== >>>>    ${state}");
+
             if (state is ServerErrorClient) {
               CreatToast().showToast(
                   errorMessage: serverError, context: context, duration: 5);
+            }
+
+            if (state is GetAllProductLoading) {
+              // print(
+              //     "SSSS  ${BlocProvider.of<ClientCubit>(context).allProducts.isEmpty}");
             }
           },
         ));

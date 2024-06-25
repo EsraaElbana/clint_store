@@ -21,15 +21,15 @@ class SearchedProductLoading extends ClientStates{}
 class SearchedProductSuccess extends ClientStates{}
 
 
-class getCategoryError extends ClientStates{}
-class getCategoryLoading extends ClientStates{}
-class getCategorySuccess extends ClientStates{}
+class GetCategoryError extends ClientStates{}
+class GetCategoryLoading extends ClientStates{}
+class GetCategorySuccess extends ClientStates{}
 
 
 
-class getDesignerError extends ClientStates{}
-class getDesignerLoading extends ClientStates{}
-class getDesignerSuccess extends ClientStates{}
+class GetDesignerError extends ClientStates{}
+class GetDesignerLoading extends ClientStates{}
+class GetDesignerSuccess extends ClientStates{}
 
 
 class AddToCartLoading extends ClientStates{}
@@ -41,6 +41,11 @@ class AddToCartSuccess extends ClientStates{}
 class GetAllCartLoading extends ClientStates{}
 class GetAllCartError extends ClientStates{}
 class GetAllCartSuccess extends ClientStates{}
+
+
+class DeleteItemCartError extends ClientStates{}
+class DeleteItemCartSuccess extends ClientStates{}
+class DeleteItemCartLoading extends ClientStates{}
 
 
 

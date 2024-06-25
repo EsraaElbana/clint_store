@@ -1,4 +1,4 @@
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
@@ -6,18 +6,22 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../app_manager/local_data.dart';
 import '../../client_Screens/product/product_design.dart';
+import '../../common_widget/creat_loading.dart';
+import '../../common_widget/create_toast.dart';
 import '../../common_widget/make_button.dart';
-
 import '../../common_widget/make_rate.dart';
+import '../../cubit/application_state/client_states.dart';
+import '../../cubit/cubits/client_cubit.dart';
 import '../../models/product_model_client.dart';
 import '../../utilities/text_style.dart';
 import '../cart_screen/cart.dart';
 
-
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
+  final List<Product> staticList;
 
-  ProductDetailsScreen({super.key, required this.product});
+  ProductDetailsScreen(
+      {super.key, required this.product, required this.staticList});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -38,6 +42,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     "Free\nDelivery",
     "Secure\nTransaction"
   ];
+  int quantity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,23 +61,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             margin: EdgeInsets.symmetric(vertical: 10),
             height: getSize(context: context).height * 0.2,
             width: getSize(context: context).width,
-
-            child:    ClipRRect(
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/images/decore.png",
+              child: Image.network(
+                widget.product.images![0].imageUrl!,
                 fit: BoxFit.cover,
               ),
             ),
           ),
 ///////////////////////////////////////////////////////////////////////////////////////// title
           Text(
-            "Stylish Soft Chair",
+            widget.product.name!,
             style: BlackTitle.display5(context),
           ),
 ///////////////////////////////////////////////////////////////////////////////////////// description
           Text(
-            "The Modern Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ",
+            widget.product.desc!,
+            // "The Modern Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ",
             style: BlackLabel.display5(context),
           ),
           SizedBox(
@@ -82,17 +92,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Row(
                 children: [
                   Text(
-                    "210 \$ ",
+                    "${widget.product.priceAfterDiscount!} \$ ",
                     style: BlackTitle.display5(context).copyWith(fontSize: 16),
                   ),
                   SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "203 \$ ",
+                    "${widget.product.price!} \$ ",
                     style: BlackLabel.display5(context).copyWith(
                         decoration: TextDecoration.lineThrough,
-                        color: Colors.grey),
+                        color: Colors.red),
                   ),
                 ],
               ),
@@ -101,16 +111,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
               Row(
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: getSize(context: context).width * 0.07,
-                    width: getSize(context: context).width * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5, color: Colors.grey)),
-                    child: Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.grey,
-                      size: 18,
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        quantity++;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: getSize(context: context).width * 0.07,
+                      width: getSize(context: context).width * 0.07,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5, color: Colors.grey)),
+                      child: Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.grey,
+                        size: 18,
+                      ),
                     ),
                   ),
                   Container(
@@ -120,20 +137,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     decoration: BoxDecoration(
                         border: Border.all(width: 0.5, color: Colors.grey)),
                     child: Text(
-                      "2",
+                      "$quantity",
                       style: BlackTitle.display5(context),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: getSize(context: context).width * 0.07,
-                    width: getSize(context: context).width * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5, color: Colors.grey)),
-                    child: Icon(
-                      FontAwesomeIcons.minus,
-                      color: Colors.grey,
-                      size: 18,
+                  InkWell(
+                    onTap: () {
+                      if (quantity <= 0) {
+                      } else {
+                        setState(() {
+                          quantity--;
+                        });
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: getSize(context: context).width * 0.07,
+                      width: getSize(context: context).width * 0.07,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5, color: Colors.grey)),
+                      child: Icon(
+                        FontAwesomeIcons.minus,
+                        color: Colors.grey,
+                        size: 18,
+                      ),
                     ),
                   ),
                 ],
@@ -148,21 +175,33 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           Row(
             children: List.generate(
                 productColor.length,
-                    (index) => Container(
-                  margin: EdgeInsets.symmetric(horizontal: 2),
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      color: productColor[index],
-                      borderRadius: BorderRadius.circular(10)),
-                )),
+                (index) => Container(
+                      margin: EdgeInsets.symmetric(horizontal: 2),
+                      height: 10,
+                      width: 10,
+                      decoration: BoxDecoration(
+                          color: productColor[index],
+                          borderRadius: BorderRadius.circular(10)),
+                    )),
           ),
-//////////////////////////////////////////////////////////////////////////////////////////// rate
-          Container(margin: EdgeInsets.symmetric(vertical: 10),
-            child: Row(children: [
-              Row(children: [ CreatRate2(),Text("159 Reviews",style: BlackLabel.display5(context),)],),
-              // Row(children: ),
-            ],),
+//////////////////////////////////////////////////////////////////////////////////////////// rate and reviews
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    CreatRate2(),
+                    SizedBox(width: 4),
+                    Text(
+                      "159 Reviews",
+                      style: BlackLabel.display5(context),
+                    )
+                  ],
+                ),
+                // Row(children: ),
+              ],
+            ),
           ),
 ////////////////////////////////////////////////////////////////////////////////////////// Delivery
 
@@ -170,111 +209,149 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
                   3,
-                      (index) => Card(
-                    elevation: 5,
-                    child: Container(
-                      height: 120,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/${deliveryIcons[index]}.svg",
-                            height: 40,
+                  (index) => Card(
+                        elevation: 5,
+                        child: Container(
+                          height: 120,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: EdgeInsets.all(5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/images/${deliveryIcons[index]}.svg",
+                                height: 40,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                deliveryNames[index],
+                                style: BlackLabel.display5(context),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            deliveryNames[index],
-                            style: BlackLabel.display5(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ))),
+                        ),
+                      ))),
 ////////////////////////////////////////////////////////////////////////////////////////////////// Add To Cart buttons
-          Center(
-            child:   MakeButton(
-              topMargin: 30,
-              width: getSize(context: context).width*0.6,
-              title: "Add To Cart",
-              onTap: () {
-                setState(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CartScreen()));
-                });
-              },),
-          ),
 
+          BlocConsumer<ClientCubit, ClientStates>(
+            builder: (BuildContext context, state) {
+              ClientCubit clientCubit = ClientCubit.get(context);
+              return Column(
+                children: [
+                  Center(
+                    child: state is AddToCartLoading
+                        ? CreatLoading()
+                        : MakeButton(
+                            topMargin: 30,
+                            width: getSize(context: context).width * 0.6,
+                            title: "Add To Cart",
+                            onTap: () {
+                              if (quantity != 0) {
+                                clientCubit.addToCart(
+                                    productId: widget.product.id!,
+                                    Quantity: quantity);
+                              } else {
+                                CreatToast().showToast(
+                                    errorMessage: "من فضلك اختر الكميه",
+                                    context: context);
+                              }
+                            },
+                          ),
+                  ),
 //////////////////////////////////////////////////////////////////////////////////////////// Frequently Bought Together
-          SizedBox(
-            height: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    "Frequently Bought Together",
-                    style: BlackTitle.display5(context),
-                  )),
-              Container(
-                height: getSize(context: context).height * 0.40,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: getSize(context:context).width*0.4,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        child: CreatProduct(
-
-                          product: widget.product,
-                        ),
-                      ),
-                    )),
-              )
-            ],
-          ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            "Frequently Bought Together",
+                            style: BlackTitle.display5(context),
+                          )),
+                      Container(
+                        height: getSize(context: context).height * 0.30,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: widget.staticList.length,
+                            itemBuilder: (context, index) => Container(
+                                  width: getSize(context: context).width * 0.4,
+                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  child: CreatProduct(
+                                    onTap: state is AddToCartLoading
+                                        ? () {}
+                                        : () {
+                                            clientCubit.addToCart(
+                                                productId: widget
+                                                    .staticList[index].id!,
+                                                Quantity: 1);
+                                          },
+                                    product: widget.staticList[index],
+                                  ),
+                                )),
+                      )
+                    ],
+                  ),
 //////////////////////////////////////////////////////////////////////////////////////////// Similar itmes
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    "Similar Items",
-                    style: BlackTitle.display5(context),
-                  )),
-              Container(
-                height: getSize(context: context).height * 0.40,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: getSize(context:context).width*0.4,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        child: CreatProduct(
-                          product: widget.product,
-                        ),
-                      ),
-                    )),
-              )
-            ],
-          )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            "Similar Items",
+                            style: BlackTitle.display5(context),
+                          )),
+                      Container(
+                        height: getSize(context: context).height * 0.30,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: widget.staticList.length,
+                            itemBuilder: (context, index) => Container(
+                                  width: getSize(context: context).width * 0.4,
+                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  child: CreatProduct(
+                                    onTap: state is AddToCartLoading
+                                        ? () {}
+                                        : () {
+                                            clientCubit.addToCart(
+                                                productId: widget
+                                                    .staticList[index].id!,
+                                                Quantity: 1);
+                                          },
+                                    product: widget.staticList[index],
+                                  ),
+                                )),
+                      )
+                    ],
+                  )
+                ],
+              );
+            },
+            listener: (BuildContext context, Object? state) {
+              if (state is ServerErrorClient) {
+                CreatToast().showToast(
+                    errorMessage: serverError, context: context, duration: 5);
+              } else if (state is AddToCartError) {
+                CreatToast().showToast(
+                    errorMessage: "عفوا حدث خطأ ولم يتم إضافه المنتج الي الساه",
+                    context: context);
+              } else if (state is AddToCartSuccess) {
+                CreatToast().showToast(
+                    errorMessage: "تمت إضافه المنتج الي السله",
+                    context: context);
+              }
+            },
+          ),
         ],
       ),
     );

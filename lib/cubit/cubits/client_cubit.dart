@@ -26,8 +26,9 @@ class ClientCubit extends Cubit<ClientStates> {
 
   Future<void> getAllProducts() async {
     allProducts.clear();
-    emit(GetAllProductLoading());
     try {
+      emit( GetAllProductLoading() );
+
       var response = await dio.get(baseUrl + "user/getallproduct",
           options: Options(
             method: 'GET',
@@ -89,45 +90,12 @@ class ClientCubit extends Cubit<ClientStates> {
     }
   }
 
-///////////////////////////////////////////////////////////////////////////////
-//   List<Product> searchedProducts = [];
-//   Future<void> getProductsBySearch({required String searchWord}) async {
-//     searchedProducts.clear();
-//     emit(SearchedProductLoading());
-//     try {
-//       var response = await dio.get(
-//           baseUrl + "user/productbycategory?searchKey=$searchWord",
-//           options: Options(
-//             method: 'GET',
-//             headers: {
-//               HttpHeaders.authorizationHeader:
-//                   '${SharedPreference.getData(key: "token")}',
-//               'content-Type': 'application/json'
-//             },
-//           ));
-//
-//       if (response.statusCode == 200) {
-//         (response.data as List).forEach((element) {
-//           productsOfSpecialCategory.add(Product.fromJson(element));
-//         });
-//         emit(SearchedProductSuccess());
-//         print("get QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ AAAAAAAAAAAAAAAAAAA");
-//       }
-//     } on DioError catch (error) {
-//       print(error.toString());
-//       if (error.error is SocketException) {
-//         emit(ServerErrorClient());
-//       } else {
-//         emit(SearchedProductError());
-//       }
-//     }
-//   }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
   List<Category> categories = [];
   Future<void> getClientHomeCategories() async {
     categories.clear();
-    emit(getCategoryLoading());
+    emit(GetCategoryLoading());
     try {
       var response =
           await dio.get(baseUrl + "user/getallcategory",
@@ -145,16 +113,17 @@ class ClientCubit extends Cubit<ClientStates> {
           categories.add(Category.fromJson(element));
         });
         categories.insert(0, Category(name: "All"));
-        emit(getCategorySuccess());
+        emit(GetCategorySuccess());
         print("get All Categories ${categories.length}");
       }
     } on DioError catch (error) {
       print(error.toString());
-      if (error.error is SocketException) {
-        emit(ServerErrorClient());
-      } else {
-        emit(getCategoryError());
-      }
+      emit(GetCategoryError());
+      // if (error.error is SocketException) {
+      //   emit(ServerErrorClient());
+      // } else {
+      //   emit(GetCategoryError());
+      // }
     }
   }
 
@@ -163,7 +132,7 @@ class ClientCubit extends Cubit<ClientStates> {
   List<Designer> designers = [];
   Future<void> getClientHomeDesigners() async {
     designers.clear();
-    emit(getDesignerLoading());
+    emit(GetDesignerLoading());
     try {
       var response =
           await dio.get(baseUrl + "user/getalleng",
@@ -180,7 +149,7 @@ class ClientCubit extends Cubit<ClientStates> {
         (response.data ["Engs"]as List).forEach((element) {
           designers.add(Designer.fromJson(element));
         });
-        emit(getDesignerSuccess());
+        emit(GetDesignerSuccess());
         print("get Designer List  ${designers.length}");
       }
     } on DioError catch (error) {
@@ -188,7 +157,7 @@ class ClientCubit extends Cubit<ClientStates> {
       if (error.error is SocketException) {
         emit(ServerErrorClient());
       } else {
-        emit(getDesignerError());
+        emit(GetDesignerError());
       }
     }
   }
@@ -217,7 +186,9 @@ class ClientCubit extends Cubit<ClientStates> {
         ),
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
+        print("AAAAAAAADDDDD TTTTooo CCCCART");
+        getAllCartProducts();
         emit(AddToCartSuccess());
         return true;
       }
@@ -237,33 +208,74 @@ class ClientCubit extends Cubit<ClientStates> {
   List<Product> allCartProducts = [];
 
   Future<bool> getAllCartProducts() async {
-    allCartProducts.clear();
+    // allCartProducts.clear();
+    //
+    // emit(GetAllCartLoading());
+    //
+    // try {
+    //   var response = await dio.get(
+    //     baseUrl + "cart/website/${SharedPreference.getData(key: "userId")}",
+    //     options: Options(
+    //       method: 'GET',
+    //       headers: {
+    //         HttpHeaders.authorizationHeader:
+    //             '${SharedPreference.getData(key: "token")}',
+    //         'content-Type': 'application/json'
+    //       },
+    //     ),
+    //   );
+    //
+    //   if (response.statusCode == 200) {
+    //
+    //
+    //     (response.data as List).forEach((element) {
+    //       allCartProducts.add(Product.fromJson(element));
+    //     });
+    //
+    //
+    //
+    //     emit(GetAllCartSuccess());
+    //     return true;
+    //   }
+    // } on DioError catch (error) {
+    //   print(error.toString());
+    //   if (error.error is SocketException) {
+    //     emit(ServerErrorClient());
+    //   } else {
+    //     emit(GetAllCartError());
+    //   }
+    // }
+    return false;
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    emit(GetAllCartLoading());
+
+  Future<bool> deleteProductFromCart({
+    required String productId,
+
+  }) async {
+    var params = {"productId": productId};
+
+    emit(DeleteItemCartLoading());
 
     try {
-      var response = await dio.get(
-        baseUrl + "cart/website/${SharedPreference.getData(key: "userId")}",
+      var response = await dio.delete(
+        baseUrl + "user/deletecart",
+        data: params,
         options: Options(
-          method: 'GET',
+          method: 'DELETE',
           headers: {
             HttpHeaders.authorizationHeader:
-                '${SharedPreference.getData(key: "token")}',
+            '${SharedPreference.getData(key: "token")}',
             'content-Type': 'application/json'
           },
         ),
       );
 
       if (response.statusCode == 200) {
-
-
-        (response.data as List).forEach((element) {
-          allCartProducts.add(Product.fromJson(element));
-        });
-
-
-
-        emit(GetAllCartSuccess());
+        print("Delete Product from cart");
+        getAllCartProducts();
+        emit(DeleteItemCartSuccess());
         return true;
       }
     } on DioError catch (error) {
@@ -271,47 +283,29 @@ class ClientCubit extends Cubit<ClientStates> {
       if (error.error is SocketException) {
         emit(ServerErrorClient());
       } else {
-        emit(GetAllCartError());
+        emit(DeleteItemCartError());
       }
     }
+
     return false;
   }
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//   Future<bool> deleteCart(
-//
-//   ) async {
-//     // var params = {"productId": productId, "quantity": Quantity};
-//
-//     emit(AddToCartLoading());
-//
-//     try {
-//       var response = await dio.post(
-//         baseUrl + "user/addcart",
-//         data: params,
-//         options: Options(
-//           method: 'POST',
-//           headers: {
-//             HttpHeaders.authorizationHeader:
-//             '${SharedPreference.getData(key: "token")}',
-//             'content-Type': 'application/json'
-//           },
-//         ),
-//       );
-//
-//       if (response.statusCode == 201) {
-//         emit(AddToCartSuccess());
-//         return true;
-//       }
-//     } on DioError catch (error) {
-//       print(error.toString());
-//       if (error.error is SocketException) {
-//         emit(ServerErrorClient());
-//       } else {
-//         emit(AddToCartError());
-//       }
-//     }
-//
-//     return false;
-//   }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

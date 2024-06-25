@@ -9,6 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
+import 'client_Screens/cart_screen/cart.dart';
+import 'cubit/observer.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +19,7 @@ void main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  // Bloc.observer = MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
   runApp(MyApp()); // run app
 }
 
@@ -27,9 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (context) => ProfileCubit()),
-        // BlocProvider(create: (context) => MissionCubit()),
-        // BlocProvider(create: (context) => ContactCubit()),
+
         BlocProvider(create: (context) => ClientCubit()..getAllProducts()..getClientHomeCategories()),
         BlocProvider(create: (context) => EngineerCubit()),
       ],

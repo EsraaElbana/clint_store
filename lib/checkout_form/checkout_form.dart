@@ -1,3 +1,4 @@
+import 'package:clint_store/utilities/routes_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../client_Screens/success_screen/success_screen.dart';
@@ -9,13 +10,13 @@ class CheckoutForm extends StatefulWidget {
 }
 
 class _CheckoutFormState extends State<CheckoutForm> {
-  final nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
-  final addressController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
-  final phoneNumberController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
-  final paymentMethodController = TextEditingController();
+  TextEditingController paymentMethodController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +58,12 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 ),
                 TextFormField(
                   controller: nameController,
-                  validator: (value) {
-                    if (nameController.text.isEmpty) {
-                      return 'please enter Your Name';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (nameController.text.isEmpty) {
+                  //     return 'please enter Your Name';
+                  //   }
+                  //   return null;
+                  // },
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.person_outline_sharp,
@@ -81,12 +82,12 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 ),
                 TextFormField(
                   controller: addressController,
-                  validator: (value) {
-                    if (addressController.text.isEmpty) {
-                      return 'please enter Your address';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (addressController.text.isEmpty) {
+                  //     return 'please enter Your address';
+                  //   }
+                  //   return null;
+                  // },
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     isDense: true,
@@ -102,12 +103,12 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 ),
                 TextFormField(
                   controller: phoneNumberController,
-                  validator: (value) {
-                    if (phoneNumberController.text.isEmpty) {
-                      return 'please enter Your Phone number';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (phoneNumberController.text.isEmpty) {
+                  //     return 'please enter Your Phone number';
+                  //   }
+                  //   return null;
+                  // },
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     isDense: true,
@@ -128,12 +129,12 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 ),
                 TextFormField(
                   controller: paymentMethodController,
-                  validator: (value) {
-                    if (paymentMethodController.text.isEmpty) {
-                      return 'please confirm the password';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (paymentMethodController.text.isEmpty) {
+                  //     return 'please confirm the password';
+                  //   }
+                  //   return null;
+                  // },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.monetization_on,
@@ -145,26 +146,17 @@ class _CheckoutFormState extends State<CheckoutForm> {
                   ),
                 ),
                 const SizedBox(
-                  height: 7,
+                  height: 17,
                 ),
-                // Row(
-                //   children: [
-                //     Container(
-                //       decoration: BoxDecoration(),
-                //       child: null,
-                //     ),
-                //   ],
-                // ),
+
                 Padding(
                   padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
                   child: MaterialButton(
                     onPressed: () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SuccessScreen()));
-                      });
+
+
+
+                     RoutesManager.navigatorPush(context, SuccessScreen());
                     },
                     shape: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -173,7 +165,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
                         borderRadius: BorderRadius.circular(40)),
                     textColor: Colors.white,
                     minWidth: double.infinity,
-                    height: 55,
+                    height: 50,
                     color: Color(0xff070F2B),
                     elevation: 0.5,
                     child: Text("Submit",

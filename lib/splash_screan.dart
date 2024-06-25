@@ -1,8 +1,11 @@
+import 'package:clint_store/cubit/application_state/client_states.dart';
+import 'package:clint_store/cubit/cubits/client_cubit.dart';
 import 'package:clint_store/interduce_pages/choose_client_or_engineer.dart';
 import 'package:clint_store/services/shared_preference.dart';
 import 'package:clint_store/utilities/routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'client_Screens/home_screen_cl/home.dart';
 
@@ -23,7 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     // SharedPreference.setData(key: "userId",value: "");
 
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2
+    ), () {
       // print(
       //     "userId in  splash screen : ${SharedPreference.getData(key: "userId")}");
 
@@ -48,17 +52,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xff070F2B),
+    return BlocConsumer<ClientCubit, ClientStates>(builder: (BuildContext context, state) {
+      return Scaffold(
+        backgroundColor: Color(0xff070F2B),
 
-      body: Container(
-        child: Center(
-            child: Image.asset(
-          "assets/images/logo.png",
-          height: double.infinity,
-          width: double.infinity,
-        )),
-      ),
-    );
+        body: Container(
+          child: Center(
+              child: Image.asset(
+                "assets/images/logo.png",
+                height: double.infinity,
+                width: double.infinity,
+              )),
+        ),
+      );
+    }, listener: (BuildContext context, Object? state) {
+
+      // print("kjjjjjjjjjjjjjjjjjj   : $state");
+    },);
   }
 }
