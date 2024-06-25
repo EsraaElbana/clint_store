@@ -34,7 +34,7 @@ class SharedPreference{
   }
 static Future clear() async {
    await shared!.clear();
-   // DefaultCacheManager().emptyCache();
+
   print("SignOut");
 }
 

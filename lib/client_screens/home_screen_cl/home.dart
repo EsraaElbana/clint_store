@@ -15,6 +15,7 @@ import '../../services/shared_preference.dart';
 import '../../utilities/routes_manager.dart';
 import '../../utilities/text_style.dart';
 
+import '../creat_drawer_cl/creat_drawer.dart';
 import '../product/product_details.dart';
 import '../product/product_grid_view_design.dart';
 import 'designer.dart';
@@ -31,7 +32,7 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
 
   List tabNames = ["Stores", "Designers"];
   int selectedTab = 0;
-
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   void initState() {
     // BlocProvider.of<ClientCubit>(context).getAllProducts();
@@ -46,12 +47,18 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+        drawer: CreatDrawerClient(),
         appBar: CreatAppBar(
           hasTitle: true,
-          hasBackButton: true,
+           hasBackButton: false,
+
           title: 'jkjkjkjjjk',
-          onDrawerPressed: () {},
-          hasDrawer: false,
+          onDrawerPressed: () {
+            _key.currentState!.openDrawer();
+
+          },
+          hasDrawer: true,
         ),
         body: BlocConsumer<ClientCubit, ClientStates>(
           builder: (BuildContext context, state) {

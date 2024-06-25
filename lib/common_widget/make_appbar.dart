@@ -1,8 +1,12 @@
 
+import 'package:clint_store/cubit/cubits/client_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../app_manager/local_data.dart';
 
+import '../client_Screens/cart_screen/cart.dart';
+import '../services/shared_preference.dart';
 import '../utilities/text_style.dart';
 class CreatAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -46,36 +50,80 @@ class _CreatAppBarState extends State<CreatAppBar> {
         centerTitle: true,
         primary: true,
         automaticallyImplyLeading: true,
-        leading: Row(
+        leading:
+        widget.hasDrawer == true
+            ? Row(
           children: [
-            widget.hasBackButton == true
-                ? Container(
+            Container(
               width: 50,
               child: creatIcon(
-                  onTap: () {
-
-                  },
-                  child: Icon(Icons.arrow_back_ios_new_sharp,    color: Color(0xff000000),)),
-            )
-                : SizedBox()
+                  onTap: widget.onDrawerPressed,
+                  child:
+                  Icon(Icons.menu,
+                    color: Color(0xff000000),
+                  )),
+            ),
           ],
-        ),
+        )
+            : SizedBox(),
+
         actions: [
-          widget.hasDrawer == true
-              ? Row(
-            children: [
-              Container(
-                width: 50,
-                child: creatIcon(
-                    onTap: widget.onDrawerPressed,
-                    child:
-                    Icon(Icons.menu,
-                      color: Color(0xff000000),
-                    )),
+    Row(
+    children: [
+    widget.hasBackButton == true
+      ? Container(
+      width: 50,
+      child: creatIcon(
+          onTap: () {
+
+          },
+          child: Icon(Icons.arrow_back_ios_new_sharp,    color: Color(0xff000000),)),
+    )
+        : SizedBox(),
+
+
+
+      Stack(
+        children: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart,color: Colors.black,),
+            onPressed: () {
+
+
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CartScreen()));
+            },
+          ),
+          BlocProvider.of<ClientCubit>(context).allCartProducts.isEmpty?SizedBox():
+
+          Positioned(
+            top: -8,
+            left: 12,
+            child: Container(
+              // color: Colors.red,
+              // height: 30,
+              alignment: Alignment.center,
+              child: Text(
+                SharedPreference.getData(key: "userId") ==
+                    null
+                    ? "0"
+                    : "${BlocProvider.of<ClientCubit>(context).allCartProducts.length}",
+                style: BlackTitle.display5(context),
               ),
-            ],
+            ),
           )
-              : SizedBox()
+        ],
+      )
+
+
+
+
+
+    ],
+    ),
         ]);
   }
 

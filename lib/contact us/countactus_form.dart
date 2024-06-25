@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ContactUsForm extends StatefulWidget {
+class ContactUs extends StatefulWidget {
   @override
-  _ContactUsFormState createState() => _ContactUsFormState();
+  _ContactUsState createState() => _ContactUsState();
 }
 
-class _ContactUsFormState extends State<ContactUsForm> {
+class _ContactUsState extends State<ContactUs> {
   final _formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
 
