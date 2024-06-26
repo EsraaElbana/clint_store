@@ -148,6 +148,12 @@ class LoginScreen extends StatelessWidget {
                                     " emailController: ${emailController.text}");
                                 print(
                                     "passwordController : ${passwordController.text}");
+
+                                print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC $userType");
+
+
+
+
                                 FocusScope.of(context).unfocus();
                                 if (emailController.text.trim().isEmpty ||
                                     passwordController.text.trim().isEmpty) {
@@ -159,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                                     authCubit.loginAsClient(
                                         email: emailController.text,
                                         password: passwordController.text);
-                                  } else {
+                                  } else  if (userType == "Engineer") {
                                     authCubit.loginAsEngineer(
                                         email: emailController.text,
                                         password: passwordController.text);
@@ -236,6 +242,10 @@ class LoginScreen extends StatelessWidget {
                          Text("i don't have an Account ",style: BlackTitle.display5(context),),
                         TextButton(
                           onPressed: () {
+
+
+
+
                             userType == "Client"
                                 ? RoutesManager.navigatorPush(
                                     context, SignUpClient(userType: userType))

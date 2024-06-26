@@ -22,6 +22,7 @@ class ChooseClientOrEngineer extends StatelessWidget {
       //   backgroundColor: Colors.transparent,
       //   elevation: 0,
       // ),
+
       backgroundColor: Color(0xff070F2B),
       body: Column(
         children: [
@@ -52,66 +53,68 @@ class ChooseClientOrEngineer extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15),
-                child: Column(children: [
-                  const Text(
-                    "Who Im ? ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(45, 28, 45, 10),
-                    child: MaterialButton(
-                      onPressed: () {
-                        RoutesManager.navigatorPush(
-                            context, LoginScreen(userType:"Client"));
-                      },
-                      shape: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff070F2B),
-                          ),
-                          borderRadius: BorderRadius.circular(20)),
-                      textColor: Color(0xff070F2B),
-                      minWidth: double.infinity,
-                      height: 55,
-                      color: Colors.white70,
-                      elevation: 0.5,
-                      child: const Text(
-                        "Client",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    const Text(
+                      "Who Im ? ",
+                      style: TextStyle(
+                          color: Colors.black,
                           fontSize: 20,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(45, 28, 45, 10),
+                      child: MaterialButton(
+                        onPressed: () {
+                          RoutesManager.navigatorPush(
+                              context, LoginScreen(userType:"Client"));
+                        },
+                        shape: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff070F2B),
+                            ),
+                            borderRadius: BorderRadius.circular(20)),
+                        textColor: Color(0xff070F2B),
+                        minWidth: double.infinity,
+                        height: 55,
+                        color: Colors.white70,
+                        elevation: 0.5,
+                        child: const Text(
+                          "Client",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(45, 2.5, 45, 10),
-                    child: MaterialButton(
-                      onPressed: () {
-                        RoutesManager.navigatorPush(
-                            context, LoginScreen(userType:"Engineer"));
-                      },
-                      shape: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff070F2B),
-                          ),
-                          borderRadius: BorderRadius.circular(20)),
-                      textColor: Color(0xff070F2B),
-                      minWidth: double.infinity,
-                      height: 55,
-                      color: Colors.white70,
-                      elevation: 0.5,
-                      child: const Text("Engineer",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.normal)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(45, 2.5, 45, 10),
+                      child: MaterialButton(
+                        onPressed: () {
+                          RoutesManager.navigatorPush(
+                              context, LoginScreen(userType:"Engineer"));
+                        },
+                        shape: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff070F2B),
+                            ),
+                            borderRadius: BorderRadius.circular(20)),
+                        textColor: Color(0xff070F2B),
+                        minWidth: double.infinity,
+                        height: 55,
+                        color: Colors.white70,
+                        elevation: 0.5,
+                        child: const Text("Engineer",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.normal)),
+                      ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
             ),
           ),

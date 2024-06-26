@@ -76,7 +76,7 @@ height: 1,
                       style: BlackTitle.display5(context),
                     )),
                 Container(
-                  height: getSize(context: context).height * 0.30,
+                  height: getSize(context: context).height * 0.35,
                   // color: Colors.amber,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,

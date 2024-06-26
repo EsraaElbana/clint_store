@@ -54,7 +54,7 @@ class _CartScreenState extends State<CartScreen> {
                       Expanded(
                         flex: 2,
                         child: Container(
-                          height: getSize(context: context).height * 0.13,
+                          height: getSize(context: context).height * 0.2,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Colors.blueGrey, width: 1),
@@ -80,8 +80,9 @@ class _CartScreenState extends State<CartScreen> {
                       Expanded(
                         flex: 4,
                         child: Container(
-                          height: getSize(context: context).height * 0.13,
+                          height: getSize(context: context).height * 0.2,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,25 +114,22 @@ class _CartScreenState extends State<CartScreen> {
                                       )),
                                 ],
                               ),
-                              Spacer(),
-                              Row(
-                                children: [
-                                  Text(
-                                    "23.00 \$",
-                                    style: BlackLabel.display5(context).copyWith(
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                ],
+                               // Spacer(),
+                              Text(
+                                "23.00 \$",
+                                style: BlackLabel.display5(context).copyWith(
+                                  color: Colors.red,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
                               ),
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "23.00 \$",
                                     style: BlackTitle.display5(context)
-                                        .copyWith(fontSize: 16),
+                                    ,
                                   ),
                                   Row(
                                     children: [
