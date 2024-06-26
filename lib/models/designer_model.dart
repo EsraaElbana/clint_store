@@ -83,7 +83,7 @@ class Designer {
     email = json['email']??"";
 
     phoneNumber = json['phoneNumber']??"";
-    address = json['address'].cast<String>()??[""].cast<String>();
+    address = (json['address'].isEmpty||json['address']==null)?[""].cast<String>():json['address'].cast<String>();
     specialAt = json['spicalAt']??"";
 
     gender = json['gender']??"";

@@ -27,8 +27,13 @@ class CreatDrawerClient extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Image.asset(
+                      "assets/images/logo.png",
+                      height: 100,
+                      width: 100,
+                    ),
                     IconButton(
                         onPressed: () {
                           Navigator.pop(context);

@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 
 import '../../app_manager/local_data.dart';
+import '../../client_Screens/creat_drawer_cl/creat_drawer.dart';
+import '../../common_widget/make_appbar.dart';
 import '../../utilities/text_style.dart';
 
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+   ProfileScreen({super.key});
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+      drawer: CreatDrawerClient(),
+      appBar: CreatAppBar(
+        hasTitle: true,
+        hasCart:true,
+        hasBackButton: true,
+
+        title: 'Profile Screen',
+        onDrawerPressed: () {
+          _key.currentState!.openDrawer();
+
+        },
+        hasDrawer: true,
+      ),
       backgroundColor: Color(0xffF0F1F3),
-      appBar: AppBar(),
+
       body: SafeArea(
         child: ListView(
           children: [

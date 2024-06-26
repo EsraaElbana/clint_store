@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../app_manager/local_data.dart';
 import '../../checkout_form/checkout_form.dart';
+import '../../client_Screens/creat_drawer_cl/creat_drawer.dart';
+import '../../common_widget/make_appbar.dart';
 import '../../common_widget/make_button.dart';
 
 import '../../utilities/text_style.dart';
@@ -17,10 +19,23 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      key: _key,
+      drawer: CreatDrawerClient(),
+      appBar: CreatAppBar(
+        hasTitle: true,    hasCart:false,
+        hasBackButton: true,
+
+        title: 'Cart Screen',
+        onDrawerPressed: () {
+          _key.currentState!.openDrawer();
+
+        },
+        hasDrawer: true,
+      ),
       body: SafeArea(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 15),

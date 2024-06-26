@@ -1,11 +1,8 @@
 import 'package:clint_store/client_screens/product/all_products.dart';
 import 'package:clint_store/common_widget/creat_loading.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../app_manager/local_data.dart';
-
 import '../../common_widget/creat_no_available_data.dart';
 import '../../common_widget/create_toast.dart';
 import '../../common_widget/make_appbar.dart';
@@ -14,9 +11,7 @@ import '../../cubit/cubits/client_cubit.dart';
 import '../../services/shared_preference.dart';
 import '../../utilities/routes_manager.dart';
 import '../../utilities/text_style.dart';
-
 import '../creat_drawer_cl/creat_drawer.dart';
-import '../product/product_details.dart';
 import '../product/product_grid_view_design.dart';
 import 'designer.dart';
 
@@ -35,7 +30,14 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   void initState() {
-    // BlocProvider.of<ClientCubit>(context).getAllProducts();
+    BlocProvider.of<ClientCubit>(context).getAllProducts();
+
+    BlocProvider.of<ClientCubit>(context).getClientHomeCategories();
+
+
+
+
+
     print("user Id : ${SharedPreference.getData(key: "userId")}");
     print("user token : ${SharedPreference.getData(key: "token")}");
     print("user Name  : ${SharedPreference.getData(key: "userName")}");
@@ -50,10 +52,10 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
       key: _key,
         drawer: CreatDrawerClient(),
         appBar: CreatAppBar(
-          hasTitle: true,
+          hasTitle: true,    hasCart:true,
            hasBackButton: false,
 
-          title: 'jkjkjkjjjk',
+          title: '',
           onDrawerPressed: () {
             _key.currentState!.openDrawer();
 
@@ -153,7 +155,7 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                   ),
                   selectedTab == 1
                       ? Container(
-                          child: (state is GetDesignerLoading)
+                          child: (state is GetDesignerLoading||state is GetAllProductLoading)
                               ? CreatLoading()
                               : DesignersScreen(
                                   designerList: clientCubit.designers))
@@ -250,7 +252,7 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                 ],
                               ),
                             ),
-////////////////////////////////////////////////////////////////////////////////////////////    Explore Button
+//////////////////////////////////////////////////////////////////////////////////////////////////    Explore Button
 //                     creatExploreButton(onTap: () {
 //                       RoutesManager.navigatorPush(context, AllProducts());
 //                     }),
@@ -311,7 +313,6 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                             ((state is GetAllProductLoading ||
                                     state is GetSpecialProductLoading))
 
-                                // ? CreatLoading()
                                 ? CreatLoading()
                                 : Container(
                                     margin: EdgeInsets.all(5),
@@ -367,6 +368,10 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                 RoutesManager.navigatorPush(
                                     context,
                                     AllProducts(
+                                      category:     clientCubit
+                                          .categories[
+                                      selectedCategory]
+                                          .name!,
                                         productList: clientCubit.allProducts));
                               } else if (selectedCategory != 0 &&
                                   clientCubit
@@ -374,6 +379,10 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                 RoutesManager.navigatorPush(
                                     context,
                                     AllProducts(
+                                      category:     clientCubit
+                                          .categories[
+                                      selectedCategory]
+                                          .name!,
                                         productList: clientCubit
                                             .productsOfSpecialCategory));
                               } else {

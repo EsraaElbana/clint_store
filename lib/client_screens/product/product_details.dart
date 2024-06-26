@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../app_manager/local_data.dart';
+import '../../client_Screens/creat_drawer_cl/creat_drawer.dart';
 import '../../client_Screens/product/product_design.dart';
 import '../../common_widget/creat_loading.dart';
 import '../../common_widget/create_toast.dart';
+import '../../common_widget/make_appbar.dart';
 import '../../common_widget/make_button.dart';
 import '../../common_widget/make_rate.dart';
 import '../../cubit/application_state/client_states.dart';
@@ -48,11 +50,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void initState() {
     super.initState();
   }
-
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      key: _key,
+      drawer: CreatDrawerClient(),
+      appBar: CreatAppBar(
+        hasTitle: true,    hasCart:true,
+        hasBackButton: true,
+
+        title: '${widget.product.name}',
+        onDrawerPressed: () {
+          _key.currentState!.openDrawer();
+
+        },
+        hasDrawer: true,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 15),
         children: [
@@ -92,14 +106,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Row(
                 children: [
                   Text(
-                    "${widget.product.priceAfterDiscount!} \$ ",
+                    "${widget.product!.priceAfterDiscount!.toStringAsFixed(2)} \$ ",
                     style: BlackTitle.display5(context).copyWith(fontSize: 16),
                   ),
                   SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "${widget.product.price!} \$ ",
+                    "${widget.product.price!.toStringAsFixed(2)} \$ ",
                     style: BlackLabel.display5(context).copyWith(
                         decoration: TextDecoration.lineThrough,
                         color: Colors.red),

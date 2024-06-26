@@ -10,7 +10,9 @@ import '../../app_manager/local_data.dart';
 
 
 
+import '../../client_Screens/creat_drawer_cl/creat_drawer.dart';
 import '../../common_widget/create_toast.dart';
+import '../../common_widget/make_appbar.dart';
 import '../../cubit/application_state/client_states.dart';
 import '../../cubit/cubits/client_cubit.dart';
 import '../../models/product_model_client.dart';
@@ -19,12 +21,25 @@ import '../../utilities/text_style.dart';
 
 class AllProducts extends StatelessWidget {
   final List<Product> productList;
-
-  AllProducts({super.key, required this.productList});
+final String category;
+  AllProducts({super.key, required this.productList, required this.category});
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      key: _key,
+      drawer: CreatDrawerClient(),
+      appBar: CreatAppBar(
+        hasTitle: true,    hasCart:true,
+        hasBackButton: true,
+
+        title: '$category',
+        onDrawerPressed: () {
+          _key.currentState!.openDrawer();
+
+        },
+        hasDrawer: true,
+      ),
       body: SafeArea(
         child: Column(
           children: [

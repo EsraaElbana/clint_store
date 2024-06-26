@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../client_Screens/success_screen/success_screen.dart';
 
-
 class CheckoutForm extends StatefulWidget {
   @override
   _CheckoutFormState createState() => _CheckoutFormState();
@@ -40,9 +39,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Expanded(
-               flex: 2,
-                child: Image.asset("assets/images/logo.png")),
+            Expanded(flex: 2, child: Image.asset("assets/images/logo.png")),
             Expanded(
               flex: 6,
               child: Column(children: [
@@ -148,15 +145,11 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 const SizedBox(
                   height: 17,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(55, 2.5, 55, 10),
                   child: MaterialButton(
                     onPressed: () {
-
-
-
-                     RoutesManager.navigatorPush(context, SuccessScreen());
+                      RoutesManager.navigatorPush(context, SuccessScreen());
                     },
                     shape: OutlineInputBorder(
                         borderSide: BorderSide(

@@ -26,7 +26,7 @@ import 'package:clint_store/app_manager/local_data.dart';
 //   // }
 // }
 
-class Product{
+class Product {
   String? id;
   String? title;
   String? desc;
@@ -47,53 +47,53 @@ class Product{
 
   Product(
       {this.id,
-        this.title,
-        this.desc,
-        this.slug,
-        this.colors,
-        this.sizes,
-        this.price,
-        this.appliedDiscount,
-        this.priceAfterDiscount,
-        this.stock,
-        this.name,
-        this.createdBy,
-        this.images,
-        this.customId,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+      this.title,
+      this.desc,
+      this.slug,
+      this.colors,
+      this.sizes,
+      this.price,
+      this.appliedDiscount,
+      this.priceAfterDiscount,
+      this.stock,
+      this.name,
+      this.createdBy,
+      this.images,
+      this.customId,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
-    title = json['title']??"";
-    desc = json['desc']??"";
-    name = json['name']??"";
+    title = json['title'] ?? "";
+    desc = json['desc'] ?? "";
+    name = json['name'] ?? "";
 
-
-    price = json['price']??"";
-    appliedDiscount = json['appliedDiscount']??"";
-    priceAfterDiscount = json['priceAfterDiscount']??"";
-
+    price = json['price'] ?? "";
+    appliedDiscount = json['appliedDiscount'] ?? "";
+    priceAfterDiscount = json['priceAfterDiscount'] ?? "";
+//////////////////////////////////////////////////////////////////////////////////
     if (json['Images'] != null) {
-      images = <Images>[
-
-      ];
+      images = <Images>[];
       json['Images'].forEach((v) {
         images!.add(new Images.fromJson(v));
-
       });
-      images!.isEmpty?images=<Images>[
-Images(
-  imageUrl: noImage,
-)
-      ]:null;
+      images!.isEmpty
+          ? images = <Images>[
+              Images(
+                imageUrl: noImage,
+              )
+            ]
+          : null;
+    } else if (json['Images'] == null) {
+      images = <Images>[
+        Images(
+          imageUrl: noImage,
+        )
+      ];
     }
-
-
-
-
-
+///////////////////////////////////////////////////////////////
     colors = json['colors'].cast<String>();
     sizes = json['sizes'].cast<String>();
     slug = json['slug'];
@@ -139,7 +139,10 @@ class Images {
   Images({this.imageUrl, this.publicId, this.id});
 
   Images.fromJson(Map<String, dynamic> json) {
-    imageUrl = (json['secure_url'].toString().trim().isEmpty||json['secure_url']==null)?noImage:json['secure_url'];
+    imageUrl = (json['secure_url'].toString().trim().isEmpty ||
+            json['secure_url'] == null)
+        ? noImage
+        : json['secure_url'];
     publicId = json['public_id'];
     id = json['_id'];
   }
