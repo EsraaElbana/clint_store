@@ -149,7 +149,7 @@ class LoginScreen extends StatelessWidget {
                                 print(
                                     "passwordController : ${passwordController.text}");
 
-                                print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC $userType");
+                                print("userType $userType");
 
 
 

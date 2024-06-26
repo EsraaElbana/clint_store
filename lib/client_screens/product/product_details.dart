@@ -16,7 +16,7 @@ import '../../cubit/application_state/client_states.dart';
 import '../../cubit/cubits/client_cubit.dart';
 import '../../models/product_model_client.dart';
 import '../../utilities/text_style.dart';
-import '../cart_screen/cart.dart';
+
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -45,7 +45,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     "Secure\nTransaction"
   ];
   int quantity = 0;
-
+bool  isCartButtonPressed=false;
   @override
   void initState() {
     super.initState();
@@ -258,13 +258,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               return Column(
                 children: [
                   Center(
-                    child: state is AddToCartLoading
+                    child: state is AddToCartLoading &&isCartButtonPressed==true
                         ? CreatLoading()
                         : MakeButton(
                             topMargin: 30,
                             width: getSize(context: context).width * 0.6,
                             title: "Add To Cart",
                             onTap: () {
+                              setState(() {
+                                isCartButtonPressed=true;
+                              });
                               if (quantity != 0) {
                                 clientCubit.addToCart(
                                     productId: widget.product.id!,
@@ -352,14 +355,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               );
             },
             listener: (BuildContext context, Object? state) {
+
               if (state is ServerErrorClient) {
+                isCartButtonPressed=false;
                 CreatToast().showToast(
                     errorMessage: serverError, context: context, duration: 5);
-              } else if (state is AddToCartError) {
+              } else if (state is AddToCartError) { isCartButtonPressed=false;
                 CreatToast().showToast(
                     errorMessage: "عفوا حدث خطأ ولم يتم إضافه المنتج الي الساه",
                     context: context);
-              } else if (state is AddToCartSuccess) {
+              } else if (state is AddToCartSuccess) { isCartButtonPressed=false;
                 CreatToast().showToast(
                     errorMessage: "تمت إضافه المنتج الي السله",
                     context: context);

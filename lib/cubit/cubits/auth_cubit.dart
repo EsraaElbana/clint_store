@@ -163,11 +163,12 @@ class AuthCubit extends Cubit<AuthStates> {
         SharedPreference.setData(key: "token", value: "A2Z ${client!.user!.token}");
         SharedPreference.setData(key: "userName", value: client!.user!.userName);
         SharedPreference.setData(key: "userType", value: "Client");
-
+        SharedPreference.setData(key: "email", value: email);
         print("user Id : ${SharedPreference.getData(key: "userId")}")  ;
         print("user token : ${SharedPreference.getData(key: "token")}")  ;
         print("user Name  : ${SharedPreference.getData(key: "userName")}")  ;
         print("user Type  : ${SharedPreference.getData(key: "userType")}")  ;
+        print("user email  : ${SharedPreference.getData(key: "email")}")  ;
         emit(LoginSuccessClient());
         return true;
       }

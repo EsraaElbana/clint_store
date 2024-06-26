@@ -97,7 +97,7 @@ class SuccessScreen extends StatelessWidget {
                 backGroundColor: Colors.transparent,
                 title: 'BACK TO HOME',
                 onTap: () {
-                  RoutesManager.navigatorPush(context, HomeScreenClient());
+                  RoutesManager.navigatorAndRemove(context, HomeScreenClient());
                 },
                 titleStyle: BlackTitle.display5(context),
               ),

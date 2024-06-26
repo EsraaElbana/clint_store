@@ -37,7 +37,7 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
 
 
 
-
+    print("user email  : ${SharedPreference.getData(key: "email")}")  ;
     print("user Id : ${SharedPreference.getData(key: "userId")}");
     print("user token : ${SharedPreference.getData(key: "token")}");
     print("user Name  : ${SharedPreference.getData(key: "userName")}");
@@ -252,10 +252,6 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                 ],
                               ),
                             ),
-//////////////////////////////////////////////////////////////////////////////////////////////////    Explore Button
-//                     creatExploreButton(onTap: () {
-//                       RoutesManager.navigatorPush(context, AllProducts());
-//                     }),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////// taps
                             Container(
                               height: 40,
@@ -310,8 +306,8 @@ class _HomeScreenClientState extends State<HomeScreenClient> {
                                       )),
                             ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////// productList
-                            ((state is GetAllProductLoading ||
-                                    state is GetSpecialProductLoading))
+                            (state is GetAllProductLoading ||
+                                    state is GetSpecialProductLoading||state is GetCategoryLoading)
 
                                 ? CreatLoading()
                                 : Container(
