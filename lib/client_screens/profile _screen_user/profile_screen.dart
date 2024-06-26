@@ -17,16 +17,19 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
 
-  bool enableUserName = false;
-  bool enableEmail = false;
-  bool enablePassword = false;
-  bool enableConfirmPassword = false;
+  @override
+  void initState() {
+    userName.text = "${SharedPreference.getData(key: "userName")}";
+    email.text = "${SharedPreference.getData(key: "userName")}";
+    password.text = "123456";
+    confirmPassword.text = "123456";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,37 +94,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             creatDetails(
-                controller: userName,
-                obscureText: true,
-                hintText: "${SharedPreference.getData(key: "userName")}",
-                title: "name",
-                subTitle: "Already have 10 orders",
-                context: context,
-                onTap: () {}),
+              controller: userName,
+              obscureText: false,
+              title: "name",
+              context: context,
+            ),
             creatDetails(
-                controller: email,
-                hintText: "${SharedPreference.getData(key: "email")}",
-                obscureText: true,
-                title: "email",
-                subTitle: "03 Address",
-                context: context,
-                onTap: () {}),
+              controller: email,
+              obscureText: false,
+              title: "email",
+              context: context,
+            ),
             creatDetails(
-                controller: password,
-                hintText: "123456",
-                obscureText: false,
-                title: "password",
-                subTitle: "you have 3 cards",
-                context: context,
-                onTap: () {}),
+              controller: password,
+              obscureText: true,
+              title: "password",
+              context: context,
+            ),
             creatDetails(
-                controller: confirmPassword,
-                obscureText: true,
-                title: "confirm password",
-                hintText: "123456",
-                subTitle: "Review for 5 items",
-                context: context,
-                onTap: () {}),
+              controller: confirmPassword,
+              obscureText: true,
+              title: "confirm password",
+              context: context,
+            ),
             Center(
               child: MakeButton(
                   topMargin: 30,
@@ -140,14 +135,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget creatDetails(
-      {required String title,
-      required String subTitle,
-      required BuildContext context,
-      required void Function() onTap,
-      required TextEditingController controller,
-      required bool obscureText,
-      required String hintText}) {
+  Widget creatDetails({
+    required String title,
+    required BuildContext context,
+    required TextEditingController controller,
+    required bool obscureText,
+  }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 15),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -172,9 +165,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   obscureText: obscureText,
                   controller: controller,
                   decoration: InputDecoration(
-                    labelText: 'Enter your name',
-                    hintText: hintText,
-                  ),
+                      // labelText: hintText,
+                      // hintText: hintText,
+                      ),
                 ),
               ],
             ),
